@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CineLizz</title>
+    <title>CineLiz</title>
     <link rel="icon" href='/resources/img/home.png'>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -83,17 +83,16 @@
                                     content="Log Out"
                                     selectable="0"
                                     href="{{ route('home') }}"/>
-                            </x-menus.submenu>
+                                </x-menus.submenu>
                             @else
-                            <!-- Menu Item: Login -->
-                            <x-menus.menu-item
-                                content="Login"
-                                selectable="1"
-                                href="{{ route('login') }}"
-                                selected="{{ Route::currentRouteName() == 'login'}}"
+                                <!-- Menu Item: Login -->
+                                <x-menus.menu-item
+                                    content="Login"
+                                    selectable="1"
+                                    href="{{ route('login') }}"
+                                    selected="{{ Route::currentRouteName() == 'login'}}"
                                 />
                             @endauth
-
                     </div>
                     <!-- Hamburger -->
                     <div class="absolute right-0 top-0 flex sm:hidden pt-3 pe-3 text-black dark:text-gray-50">

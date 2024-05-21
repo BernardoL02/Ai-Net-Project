@@ -7,14 +7,14 @@
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-900 shadow sm:rounded-lg">
         <div class="max-full">
             <section>
-                <header>
+                <div>
                     <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         New genre
                     </h2>
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-300  mb-6">
                         Click on "Save" button to store the information.
                     </p>
-                </header>
+                </div>
 
                 <form method="POST" action="{{ route('genres.store') }}">
                     @csrf
@@ -22,7 +22,7 @@
                         @include('genres.shared.fields', ['mode' => 'create'])
                     </div>
                     <div class="flex mt-6">
-                        <x-button element="submit" type="dark" text="Save new department" class="uppercase"/>
+                        <x-button element="submit" type="dark" text="Save new genre" class="uppercase"/>
                     </div>
                 </form>
             </section>
