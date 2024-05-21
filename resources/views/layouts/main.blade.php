@@ -69,21 +69,27 @@
 
 
                                 <hr>
-                                <x-menus.submenu-item
-                                    content="Profile"
-                                    selectable="0"
-                                    href="#"/>
-                                <x-menus.submenu-item
-                                    content="Change Password"
-                                    selectable="0"
-                                    href="{{ route('profile.edit.password') }}"/>
-
+                                    <x-menus.submenu-item
+                                        content="Profile"
+                                        selectable="0"
+                                        href="#"/>
+                                    <x-menus.submenu-item
+                                        content="Change Password"
+                                        selectable="0"
+                                        href="{{ route('profile.edit.password') }}"/>
                                 <hr>
+
+                                <form id="form_to_logout_from_menu" method="POST" action="{{ route('logout') }}" class="hidden">
+                                    @csrf
+                                </form>
+
+                                <!-- Item de Submenu "Log Out" usando o novo componente -->
                                 <x-menus.submenu-item
                                     content="Log Out"
                                     selectable="0"
-                                    href="{{ route('home') }}"/>
+                                    form="form_to_logout_from_menu"/>
                                 </x-menus.submenu>
+
                             @else
                                 <!-- Menu Item: Login -->
                                 <x-menus.menu-item

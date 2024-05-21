@@ -7,7 +7,7 @@
             <div class="relative inline-flex items-center">
                 <div class="-top-3 absolute left-3">
                     @if($total > 0)
-                        <p class="flex p-3 h-2 w-2 items-center justify-center rounded-full bg-red-500 text-xs text-white">{{ $total }}</p>
+                        <p class="flex p-3 h-2 w-2 items-center justify-center rounded-full bg-red-700 text-xs text-white">{{ $total }}</p>
                     @endif
                 </div>
                 <svg  class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

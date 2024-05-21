@@ -47,16 +47,17 @@
                         </a>
                     @endif
 
-                    <x-primary-button class="ms-3">
-                        {{ __('Log in') }}
-                    </x-primary-button>
-
-                    <x-default-button
+                    <x-button
                         text="Register"
                         href="{{route('register')}}"
                         type="primary"
                     />
 
+                    <x-primary-button class="ms-3">
+                        {{ __('Log in') }}
+                    </x-primary-button>
+
+                    <x-button
 
             </form>
             </div>
