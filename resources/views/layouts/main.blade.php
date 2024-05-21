@@ -76,13 +76,10 @@
                                     href="{{ route('profile.edit.password') }}"/>
 
                                 <hr>
-                                <form id="form_to_logout_from_menu" method="POST" action="{{ route('logout') }}" class="hidden">
-                                    @csrf
-                                </form>
                                 <x-menus.submenu-item
                                     content="Log Out"
                                     selectable="0"
-                                    form="form_to_logout_from_menu"/>
+                                    href="{{ route('home') }}"/>
                             </x-menus.submenu>
                             @else
                             <!-- Menu Item: Login -->
