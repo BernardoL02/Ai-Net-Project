@@ -26,7 +26,7 @@
                     <!-- Logo -->
                     <div class="shrink-0 -ms-4">
                         <a href="{{ route('home')}}">
-                            <div class="h-14 w-14 mt-1 mr-2 bg-cover bg-[url('../img/home.png')] dark:bg-[url('../img/politecnico_h_white.svg')]"></div>
+                            <div class="h-14 w-14 mt-1 mr-2 bg-cover bg-[url('../img/home.png')] dark:bg-[url('../img/home.png')]"></div>
                         </a>
                     </div>
 
