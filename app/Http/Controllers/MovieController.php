@@ -12,7 +12,10 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+
+        $movies1 = Movie::all();
+        return view('movies.index')->with('movies', $movies1);
+
     }
 
     /**

@@ -39,7 +39,7 @@
                         <!-- Menu Item: Filmes -->
                         <x-menus.menu-item
                             content="Filmes"
-                            href="#"
+                            href="{{route('movies.index')}}"
                             selected="{{Route::currentRouteName()=='#'}}"
                         />
 

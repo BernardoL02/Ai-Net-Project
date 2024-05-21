@@ -3,6 +3,7 @@
 use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MovieController;
 
 
 // REPLACE THIS
@@ -21,3 +22,5 @@ Route::view('/dashboard', 'dashboard')->name('dashboard');
 require __DIR__ . '/auth.php';
 
 Route::resource("genres", GenreController::class);
+Route::resource('movies', MovieController::class);
+
