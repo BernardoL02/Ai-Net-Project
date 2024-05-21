@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CineLizz</title>
+    <title>CineLiz</title>
     <link rel="icon" href='/resources/img/home.png'>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

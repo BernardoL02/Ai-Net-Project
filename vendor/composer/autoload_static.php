@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
+class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -572,6 +572,8 @@ class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
         'App\\Http\\Controllers\\TheaterController' => __DIR__ . '/../..' . '/app/Http/Controllers/TheaterController.php',
         'App\\Http\\Controllers\\TicketController' => __DIR__ . '/../..' . '/app/Http/Controllers/TicketController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\GenreFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/GenreFormRequest.php',
         'App\\Models\\Configuration' => __DIR__ . '/../..' . '/app/Models/Configuration.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\Genre' => __DIR__ . '/../..' . '/app/Models/Genre.php',
@@ -582,6 +584,7 @@ class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
         'App\\Models\\Theater' => __DIR__ . '/../..' . '/app/Models/Theater.php',
         'App\\Models\\Ticket' => __DIR__ . '/../..' . '/app/Models/Ticket.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Policies\\GenrePolicy' => __DIR__ . '/../..' . '/app/Policies/GenrePolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\TelescopeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/TelescopeServiceProvider.php',
         'App\\View\\Components\\Alert' => __DIR__ . '/../..' . '/app/View/Components/Alert.php',
@@ -591,6 +594,7 @@ class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
         'App\\View\\Components\\Field\\RadioGroup' => __DIR__ . '/../..' . '/app/View/Components/Field/RadioGroup.php',
         'App\\View\\Components\\Field\\Select' => __DIR__ . '/../..' . '/app/View/Components/Field/Select.php',
         'App\\View\\Components\\Field\\TextArea' => __DIR__ . '/../..' . '/app/View/Components/Field/TextArea.php',
+        'App\\View\\Components\\Genres\\Table' => __DIR__ . '/../..' . '/app/View/Components/Genres/Table.php',
         'App\\View\\Components\\Menus\\Cart' => __DIR__ . '/../..' . '/app/View/Components/Menus/Cart.php',
         'App\\View\\Components\\Menus\\MenuItem' => __DIR__ . '/../..' . '/app/View/Components/Menus/MenuItem.php',
         'App\\View\\Components\\Menus\\SubMenuItem' => __DIR__ . '/../..' . '/app/View/Components/Menus/SubMenuItem.php',
@@ -601,6 +605,7 @@ class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
         'App\\View\\Components\\Table\\IconEdit' => __DIR__ . '/../..' . '/app/View/Components/Table/IconEdit.php',
         'App\\View\\Components\\Table\\IconMinus' => __DIR__ . '/../..' . '/app/View/Components/Table/IconMinus.php',
         'App\\View\\Components\\Table\\IconShow' => __DIR__ . '/../..' . '/app/View/Components/Table/IconShow.php',
+        'App\\View\\Components\\defaultButton' => __DIR__ . '/../..' . '/app/View/Components/defaultButton.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -6722,9 +6727,9 @@ class ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdb1dab8fdc1edf3f16ce9e26cbebe28a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d::$classMap;
 
         }, null, ClassLoader::class);
     }
