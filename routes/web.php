@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 
 // REPLACE THIS
 // Route::get('/', function () {
@@ -13,14 +13,14 @@ use App\Http\Controllers\MovieController;
 
 //WITH THIS
 Route::view('/', 'home')->name('home');
+
 Route::middleware('auth')->group(function () {
     Route::get('/password', [ProfileController::class, 'editPassword'])->name('profile.edit.password');
+    Route::get('/profile/update', [ProfileController::class, 'edit'])->name('profile.update');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 });
-
-Route::view('/dashboard', 'dashboard')->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
 Route::resource("genres", GenreController::class);
 Route::resource('movies', MovieController::class);
-

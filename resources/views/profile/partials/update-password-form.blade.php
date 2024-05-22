@@ -40,8 +40,8 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
+                    class="text-sm text-green-600 dark:text-green-400"
+                >{{ __('Password Changed Successfully.') }}</p>
             @endif
         </div>
     </form>

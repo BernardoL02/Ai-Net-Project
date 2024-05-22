@@ -28,6 +28,12 @@
     };
     $selectedValue = array_key_exists($value, $options) ? $value : $defaultValue;
 @endphp
+
+@php
+    echo $value;
+
+@endphp
+
 <div {{ $attributes->merge(['class' => "$widthClass"]) }}>
     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="id_{{ $name }}">
         {{ $label }}
@@ -65,3 +71,4 @@
         </div>
     @enderror
 </div>
+
