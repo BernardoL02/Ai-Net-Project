@@ -33,7 +33,7 @@
             <x-field.select
                 name="payment_type"
                 :options="['' => ' - ', 'VISA' => 'Visa', 'MBWAY' => 'MB Way', 'PAYPAL' => 'PayPal']"
-                value="mbway"
+                value="MBWAY"
                 label="Payment Type"
                 :required="true"
                 value="Visa"

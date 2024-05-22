@@ -66,7 +66,6 @@
                                         </div>
                                     </x-slot>
 
-
                                     <hr>
                                         <x-menus.submenu-item
                                         content="Profile"

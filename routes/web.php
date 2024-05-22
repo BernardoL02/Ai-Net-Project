@@ -23,4 +23,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::resource("genres", GenreController::class);
+
 Route::resource('movies', MovieController::class);
+Route::get('/search', [MovieController::class, 'search'])->name('movies.search');

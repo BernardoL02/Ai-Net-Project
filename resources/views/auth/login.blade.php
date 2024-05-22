@@ -57,7 +57,7 @@
                         {{ __('Log in') }}
                     </x-primary-button>
 
-                    <x-button
+
 
             </form>
             </div>

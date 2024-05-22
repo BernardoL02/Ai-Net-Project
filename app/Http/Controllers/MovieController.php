@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Screening;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -10,13 +12,41 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): View
     {
+        $date = date("Y-m-d");
+        $endDate = date("Y-m-d", strtotime("+2 weeks"));
 
-        $movies1 = Movie::all();
-        return view('movies.index')->with('movies', $movies1);
+        // Iniciando a consulta
+        $query = Movie::query();
 
+        // Aplicando filtros de busca
+        if ($request->filled('query')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->query('query') . '%')
+                ->orWhere('synopsis', 'like', '%' . $request->query('query') . '%');
+            });
+        }
+
+        // Aplicando filtro de gênero
+        if ($request->filled('genre')) {
+            $query->where('genre_code', $request->query('genre'));
+        }
+
+        // Obtendo todos os gêneros
+        $genres = Genre::all();
+
+        // Obtendo filmes que estão em exibição nas próximas duas semanas
+        $screenings = Screening::whereBetween('date', [$date, $endDate])->pluck('movie_id');
+        $moviesByScreening = $query->whereIn('id', $screenings)->get();
+
+        // Definindo o gênero selecionado, se houver
+        $selectedGenre = $request->query('genre', '');
+
+        // Passando variáveis para a vista
+        return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -64,5 +94,10 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
+    }
+
+    public function search(Request $request): View
+    {
+        return $this->index($request);
     }
 }
