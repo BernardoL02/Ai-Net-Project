@@ -18,7 +18,7 @@
         <tbody>
         @foreach ($genres as $genre)
             <tr class="border-b border-b-gray-400 dark:border-b-gray-500">
-                <td class="px-2 py-2 text-left hidden lg:table-cell">{{ $genre->abbreviation }}</td>
+                <td class="px-2 py-2 text-left hidden lg:table-cell">{{ $genre->code }}</td>
                 <td class="px-2 py-2 text-left">{{ $genre->name }}</td>
                 @if($showView)
                     @can('view', $genre)

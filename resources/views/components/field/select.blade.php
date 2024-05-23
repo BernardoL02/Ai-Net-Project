@@ -27,7 +27,7 @@
         </label>
     @endif
     <select id="id_{{ $name }}" name="{{ $name }}"
-        class="appearance-none block
+        class=" appearance-none block
             mt-1 w-full
             bg-white dark:bg-gray-900
             text-black dark:text-gray-50

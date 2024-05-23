@@ -49,7 +49,7 @@
             disabled:border-dashed
             disabled:opacity-100
             disabled:select-none"
-            autofocus="autofocus"
+
             @required($required)
             @disabled($readonly)
         >

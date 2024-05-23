@@ -19,11 +19,12 @@ class MovieController extends Controller
 
         $query = Movie::query();
 
-        if ($request->filled('query')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->query('query') . '%')
-                  ->orWhere('synopsis', 'like', '%' . $request->query('query') . '%');
-            });
+        if ($request->filled('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
+        }
+
+        if ($request->filled('synopsis')) {
+            $query->where('synopsis', 'like', '%' . $request->synopsis . '%');
         }
 
         if ($request->filled('genre')) {
@@ -31,18 +32,28 @@ class MovieController extends Controller
         }
 
         $genres = Genre::all();
-
         $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
         $arrayGenresCode = array(' ' => 'All Genres') + $arrayGenresCode;
 
-        $screenings = Screening::whereBetween('date', [$date, $endDate])->pluck('movie_id');
+        if($request->filled('date') && $request->date != '-') {
+
+            $screenings = Screening::where('date', $request->date)->pluck('movie_id');
+
+        } else {
+
+            $screenings = Screening::whereBetween('date', [$date, $endDate])->pluck('movie_id');
+
+        }
 
         $moviesByScreening = $query->whereIn('id', $screenings)->get();
-
         $selectedGenre = $request->query('genre', '');
 
-        return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre','arrayGenresCode'));
+        $screeningByDates = Screening::whereBetween('date', [$date, $endDate])->pluck('date')->unique()->toArray();
+        $screeningByDates = array_combine($screeningByDates, $screeningByDates);
+        $screeningByDates = collect($screeningByDates)->sort();
+        $screeningByDates = array('-' => 'All Dates') + $screeningByDates->toArray();
 
+        return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre', 'arrayGenresCode', 'screeningByDates'));
     }
 
 
@@ -92,10 +103,5 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
-    }
-
-    public function search(Request $request): View
-    {
-        return $this->index($request);
     }
 }

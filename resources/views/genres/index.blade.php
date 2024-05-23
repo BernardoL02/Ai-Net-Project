@@ -15,7 +15,8 @@
                 </div>
             @endcan
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-                <x-genres.table :Genres="$genres"
+                <x-genres.table
+                    :Genres="$genres"
                     :showView="true"
                     :showEdit="true"
                     :showDelete="true"
