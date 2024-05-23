@@ -51,6 +51,18 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+
+        $customer = Customer::where('id', $request->user()->id)->first();
+
+        if (!$customer) {
+            $customer = new Customer();
+            $customer->user_id = $request->user()->id;
+        }
+
+        $customer->nif = $request->nif;
+        $customer->payment_type = $request->payment_type;
+        $customer->save();
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
