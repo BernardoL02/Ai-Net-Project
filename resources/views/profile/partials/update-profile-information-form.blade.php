@@ -33,10 +33,9 @@
             <x-field.select
                 name="payment_type"
                 :options="['' => ' - ', 'VISA' => 'Visa', 'MBWAY' => 'MB Way', 'PAYPAL' => 'PayPal']"
-                value="MBWAY"
+                :value="(string)$customer->payment_type"
                 label="Payment Type"
                 :required="true"
-                value="Visa"
                 :width="'full'"
             />
         </div>

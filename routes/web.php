@@ -16,7 +16,7 @@ Route::view('/', 'home')->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/password', [ProfileController::class, 'editPassword'])->name('profile.edit.password');
-    Route::get('/profile/update', [ProfileController::class, 'edit'])->name('profile.update');
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
