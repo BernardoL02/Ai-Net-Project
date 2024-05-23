@@ -19,9 +19,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $customer = Customer::join('users', 'customers.id', '=', 'users.id')
-                                    ->where('customers.id', $user->id)
-                                    ->first();
+        $customer = Customer::with('user')
+                            ->where('id', $user->id)
+                            ->first();
 
         return view('profile.edit', [
             'user' => $user,

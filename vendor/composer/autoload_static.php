@@ -574,6 +574,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\GenreFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/GenreFormRequest.php',
+        'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\Configuration' => __DIR__ . '/../..' . '/app/Models/Configuration.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\Genre' => __DIR__ . '/../..' . '/app/Models/Genre.php',

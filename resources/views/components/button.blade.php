@@ -34,7 +34,7 @@
                         focus:bg-green-800 dark:focus:bg-green-100
                         active:bg-green-900 dark:active:bg-green-100',
         'danger' => 'text-white dark:text-gray-900
-                        bg-red-600 dark:bg-red-200
+                        bg-red-700 dark:bg-red-200
                         hover:bg-red-700 dark:hover:bg-red-100
                         focus:bg-red-700 dark:focus:bg-red-100
                         active:bg-red-800 dark:active:bg-red-100',

@@ -34,7 +34,7 @@
                     <x-button
                         href="{{ route('genres.edit', ['genre' => $genre]) }}"
                         text="Edit"
-                        type="primary"/>
+                        type="info"/>
                     @endcan
                     @can('delete', $genre)
                     <form method="POST" action="{{ route('genres.destroy', ['genre' => $genre]) }}">
