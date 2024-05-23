@@ -1,13 +1,3 @@
-{{--
-    NOTE: we've used the match to define multiple versions of width class,
-    to ensure that all specific width related classes are defined statically
-    on the source code - this guarantees that the Tailwind builder
-    detects the corresponding class.
-    If we had used dynamically generated classes (e.g. "w-{{ $width }}") then
-    the builder would not detect concrete values.
-    Check documentation about dynamic classes:
-    https://tailwindcss.com/docs/content-configuration#dynamic-class-names
---}}
 @php
     $widthClass = match($width) {
         'full' => 'w-full',
@@ -25,14 +15,17 @@
         '2/5' => 'w-2/5',
         '3/5' => 'w-3/5',
         '4/5' => 'w-4/5',
+        default => 'w-full',
     };
     $selectedValue = array_key_exists($value, $options) ? $value : $defaultValue;
 @endphp
 
 <div {{ $attributes->merge(['class' => "$widthClass"]) }}>
-    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="id_{{ $name }}">
-        {{ $label }}
-    </label>
+    @if ($label)
+        <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="id_{{ $name }}">
+            {{ $label }}
+        </label>
+    @endif
     <select id="id_{{ $name }}" name="{{ $name }}"
         class="appearance-none block
             mt-1 w-full
@@ -52,18 +45,16 @@
             disabled:bg-none
             disabled:opacity-100
             disabled:select-none"
-            autofocus="autofocus"
-            @required($required)
-            @disabled($readonly)
+            @if($required) required @endif
+            @if($readonly) disabled @endif
         >
-        @foreach ($options as $key => $value)
-            <option value="{{ $key }}" @selected($selectedValue == $key)>{{ $value }}</option>
+        @foreach ($options as $key => $option)
+            <option value="{{ $key }}" @selected($selectedValue == $key)>{{ $option }}</option>
         @endforeach
     </select>
-    @error( $name )
+    @error($name)
         <div class="text-sm text-red-500">
             {{ $message }}
         </div>
     @enderror
 </div>
-

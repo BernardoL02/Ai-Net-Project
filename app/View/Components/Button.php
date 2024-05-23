@@ -28,6 +28,7 @@ class Button extends Component
         }
         $this->buttonName = trim($buttonName);
         $this->text = trim($text) ?: ucfirst($this->type);
+        $this->href = $href;
     }
 
     /**

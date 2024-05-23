@@ -10,17 +10,17 @@
             <h1 class="pb-3 text-4xl font-semibold  text-gray-800 dark:text-gray-200 leading-tight">
                 Filmes Disponíveis
             </h1>
-            <form action="{{ route('movies.search') }}" method="GET" class="pb-6 flex space-x-4">
+            <form id="search_movie" action="{{ route('movies.search') }}" method="GET" class="pb-6 flex space-x-4">
                 <input type="text" name="query" placeholder="Search movies..." class="px-4 py-2 border rounded-md w-full bg-gray-100 dark:bg-gray-700 dark:text-white" value="{{ request('query') }}">
-                <select name="genre" class="px-4 py-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-white">
-                    <option value="">All Genres</option>
-                    @foreach($genres as $genre)
-                        <option value="{{ $genre->code }}" {{ request('genre') == $genre->code ? 'selected' : '' }}>{{ $genre->name }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
-            </form>
 
+                <x-field.select
+                    name="genre"
+                    :options="$arrayGenresCode"
+                    label="Genre"
+                    :width="'md'"
+                />
+                <x-button element="submit" text="Search" type="primary" />
+            </form>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  ">
                 @foreach ($moviesByScreening as $movie)
