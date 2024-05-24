@@ -12,7 +12,6 @@ class Theater extends Model
 {
     use HasFactory, SoftDeletes;
     public $timestamp = false;
-
     protected $fillable=['name','photo_filename'];
 
 
@@ -29,12 +28,12 @@ class Theater extends Model
 
     }
 
-    public function getTheaterFullUrlAttribute()
+    public function getPhotoFullUrlAttribute()
     {
-        if ($this->photo_filename && Storage::exists("public/photos_theaters/{$this->photo_filename}")) {
-            return asset("storage/photos_theaters/{$this->photo_filename}");
+        if ($this->photo_filename && Storage::exists("public/theaters/{$this->photo_filename}")) {
+            return asset("storage/theaters/{$this->photo_filename}");
         } else {
-            return asset("img/default_theater.jpg");
+            return asset("img/no-img.jpg");
         }
     }
 }

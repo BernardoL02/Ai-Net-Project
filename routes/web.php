@@ -5,6 +5,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TheaterController;
 
 // REPLACE THIS
 // Route::get('/', function () {
@@ -26,3 +27,5 @@ Route::resource("genres", GenreController::class);
 
 Route::resource('movies', MovieController::class);
 Route::get('/search', [MovieController::class, 'index'])->name('movies.index');
+Route::resource('theaters',TheaterController::class);
+//Route::delete('theater/{theater}/photo', [TheaterController::class, 'destroyPhoto'])->name('theater.photo.destroy')->can('update', 'theater');

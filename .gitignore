@@ -1,1 +1,10 @@
 .env
+.env.backup
+/node_modules
+/.vscode
+/.idea
+./.fleet
+/public/build
+/public/storage
+/storage/*.key
+/vendor
