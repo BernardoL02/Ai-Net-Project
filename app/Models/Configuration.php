@@ -9,5 +9,6 @@ class Configuration extends Model
 {
     use HasFactory;
     public $timestamp = false;
+    protected $table = "cofiguration";
     protected $fillable=['ticket_price','registered_customer_ticket_discount'];
 }
