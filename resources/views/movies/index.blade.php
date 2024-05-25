@@ -10,9 +10,9 @@
                 Filmes Disponíveis
             </h1>
             <div>
-                <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4 grid grid-col-1 sm:grid-cols-2">
-                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}" />
-                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}"/>
+                <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4  grid grid-col-1 sm:grid-cols-2">
+                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-64" />
+                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-64"/>
                     <x-field.select
                         name="genre"
                         :options="$arrayGenresCode"
@@ -31,6 +31,7 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($moviesByScreening as $movie)
+
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:rotate-2 hover:scale-105">
                         <img src="{{ $movie->poster_full_url }}" alt="{{ $movie->title }}">
                         <div class="pb-0 p-2">
