@@ -38,8 +38,9 @@
                         <!-- Menu Item: Filmes -->
                         <x-menus.menu-item
                             content="Filmes"
+                            selectable="1"
                             href="{{route('movies.index')}}"
-                            selected="{{Route::currentRouteName()=='#'}}"
+                            selected="{{Route::currentRouteName()=='movies.index'}}"
                         />
 
                         <div class="grow"></div>

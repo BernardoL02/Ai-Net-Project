@@ -3,8 +3,8 @@
         @if($selected)
             <a class="grow inline-flex items-center h-16 px-3 sm:px-0.5 md:px-1 lg:px-2 pt-1
                     text-sm font-medium text-gray-900 dark:text-gray-50
-                    border-b-2 border-indigo-400 dark:border-indigo-500
-                    focus:outline-none focus:border-indigo-700 dark:focus:border-indigo-300"
+                    border-b-2 border-red-400 dark:border-red-500
+                    focus:outline-none focus:border-red-700 dark:focus:border-red-300"
                 href="{{ $href }}">
                 {{ $content }}
             </a>
