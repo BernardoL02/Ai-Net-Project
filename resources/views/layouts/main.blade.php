@@ -26,7 +26,7 @@
                 <!-- Logo + Menu Items + Hamburger -->
                 <div class="relative flex flex-col sm:flex-row px-6 sm:px-0 grow justify-between">
                     <!-- Logo -->
-                    <div class="shrink-0 -ms-4">
+                    <div class="shrink-0 -ms-4 mr-6">
                         <a href="{{ route('home')}}">
                             <div class="h-14 w-14 mt-1 mr-2 bg-cover bg-[url('../img/home.png')] dark:bg-[url('../img/home.png')]"></div>
                         </a>
