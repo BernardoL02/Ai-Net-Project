@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+
 
 class ProfileController extends Controller
 {
@@ -49,6 +52,11 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->hasFile('photo_file')) {
+            $path = $request->photo_file->store('public/photos');
+            $request->user()->photo_filename = basename($path);
+        }
+
         $request->user()->save();
 
 
@@ -56,11 +64,20 @@ class ProfileController extends Controller
 
         if (!$customer) {
             $customer = new Customer();
-            $customer->user_id = $request->user()->id;
+            $customer->id = $request->user()->id;
+            $customer->nif = $request->nif ?? null;
+            $customer->payment_type = $request->payment_type ?? null;
+        }
+        else{
+            if ($request->has('nif')) {
+                $customer->nif = $request->nif;
+            }
+
+            if ($request->has('payment_type')) {
+                $customer->payment_type = $request->payment_type;
+            }
         }
 
-        $customer->nif = $request->nif;
-        $customer->payment_type = $request->payment_type;
         $customer->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
@@ -85,5 +102,24 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function destroyPhoto(User $user): RedirectResponse
+    {
+        if ($user->photo_filename) {
+
+            if (Storage::fileExists('public/photos/' . $user->photo_filename)) {
+                Storage::delete('public/photos/' . $user->photo_filename);
+            }
+
+            $user->photo_filename = null;
+            $user->save();
+
+            return redirect()->back()
+                    ->with('alert-type', 'success')
+                    ->with('alert-msg', "Photo has been deleted successfully.");
+        }
+
+        return redirect()->back();
     }
 }

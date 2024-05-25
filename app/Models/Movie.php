@@ -33,7 +33,7 @@ class Movie extends Model
         if ($this->poster_filename && Storage::exists("public/posters/{$this->poster_filename}")) {
             return asset("storage/posters/{$this->poster_filename}");
         } else {
-            return asset("img/default_poster.jpg");
+            return asset("img/default_poster.png");
         }
     }
 }

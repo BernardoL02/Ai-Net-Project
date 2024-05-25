@@ -18,6 +18,7 @@ class Image extends Component
         public bool $readonly = false,
         public bool $deleteAllow = true,
         public string $deleteTitle = 'Delete',
+        public string $submitForm = '',
         public string $deleteForm = '',
         public string $width = 'full',
     )

@@ -58,11 +58,11 @@
                                     >
                                     <x-slot:content>
                                         <div class="pe-1">
-                                            <img src="{{ Auth::user()->photoFullUrl}}" class="w-11 h-11 min-w-11 min-h-11 rounded-full">
+                                            <img src="{{ Auth::user()?->photoFullUrl}}" class="w-11 h-11 min-w-11 min-h-11 rounded-full">
                                         </div>
                                         {{-- ATENÇÃO - ALTERAR FORMULA DE CALCULO DAS LARGURAS MÁXIMAS QUANDO O MENU FOR ALTERADO --}}
                                         <div class="ps-1 sm:max-w-[calc(100vw-39rem)] md:max-w-[calc(100vw-41rem)] lg:max-w-[calc(100vw-46rem)] xl:max-w-[34rem] truncate">
-                                            {{ Auth::user()->name }}
+                                            {{ Auth::user()?->name }}
                                         </div>
                                     </x-slot>
 
@@ -132,7 +132,7 @@
                         {!! session('alert-msg') !!}
                     </x-alert>
                 @endif
-                @if (!$errors->isEmpty())
+                @if (!$errors?->isEmpty())
                         <x-alert type="warning" message="Operation failed because there are validation errors!"/>
                 @endif
                 @yield('main')

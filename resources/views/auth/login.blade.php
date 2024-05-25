@@ -47,7 +47,7 @@
                         </a>
                     @endif
 
-                    <x-button
+                    <x-button class="ml-4"
                         text="Register"
                         href="{{route('register')}}"
                         type="primary"
@@ -56,8 +56,6 @@
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>
-
-
 
             </form>
             </div>

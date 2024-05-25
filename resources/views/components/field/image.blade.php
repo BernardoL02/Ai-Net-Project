@@ -42,34 +42,28 @@
         <div class="block font-medium text-sm text-gray-700 dark:text-gray-300 mt-6">
             {{ $label }}
         </div>
-        <img class="{{$widthClass}} {{$maxHeightClass}} aspect-auto"
+        <img class="{{$widthClass}} {{$maxHeightClass}} aspect-auto border-4 border-white shadow-2xl "
              src="{{ $imageUrl }}">
         @if(!$readonly)
         <div class="{{$widthClass}} flex-col space-y-4 items-stretch mt-4">
             <div>
                 <div class="flex flex-row items-center">
-                    <input id="id_{{ $name }}" name="{{ $name }}" type="file"
+                    <input id="id_{{ $name }}" name="{{ $name }}" type="file" form="{{ $submitForm }}"
                         accept="image/png, image/jpeg"
                         onchange="document.getElementById('id_{{ $name }}_selected_file').innerHTML= document.getElementById('id_{{ $name }}').files[0].name ?? ''"
                         class="hidden"/>
                         <label for="id_{{ $name }}"
-                            class="min-w-32
-                            px-4 py-2 mr-2 inline-block border border-transparent
-                            rounded-md
-                            font-medium text-sm tracking-widest
-                            focus:outline-none focus:ring-2
-                            focus:ring-indigo-500 dark:focus:ring-indigo-400
-                            focus:ring-offset-2 transition ease-in-out duration-150
-                            text-white dark:text-gray-900
-                            bg-gray-800 dark:bg-gray-200
-                            hover:bg-gray-900 dark:hover:bg-gray-100
-                            focus:bg-gray-900 dark:focus:bg-gray-100
-                            active:bg-gray-950 dark:active:bg-gray-50
-                            cursor-pointer"
-                        >Choose file</label>
+                            class="
+                            inline-flex items-leeft px-4 py-2 bg-gray-800 dark:bg-gray-200 border
+                            border-transparent rounded-md font-semibold text-sm text-white
+                            dark:text-gray-800 tracking-widest hover:bg-gray-700 dark:hover:bg-white
+                            focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300
+                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+                        >Choose File</label>
                         <label id="id_{{ $name }}_selected_file"
-                            class="text-sm text-slate-500 truncate"></label>
-                    </div>
+                            class="text-xs pl-4 text-gray-500 truncate max-w-32"></label>
+                </div>
                 @error( $name )
                     <div class="text-sm text-red-500">
                         {{ $message }}
@@ -81,8 +75,9 @@
                 <x-button
                     element="submit"
                     :text="$deleteTitle"
-                    type="danger"
+                    type="primary"
                     form="{{ $deleteForm }}"
+                    onclick="document.getElementById('{{ $deleteForm }}').submit();"
                     />
             </div>
             @endif
@@ -90,3 +85,4 @@
         @endif
     </div>
 </div>
+
