@@ -9,10 +9,10 @@
             <h1 class="pb-3 text-4xl font-semibold text-gray-800 dark:text-gray-200 leading-tight">
                 Filmes Disponíveis
             </h1>
-            <div> <!-- Terminar-->
-                <form  action="{{ route('movies.index') }}" method="GET" class="pb-6 flex space-x-4">
-                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}"  />
-                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" />
+            <div>
+                <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4 grid grid-col-1 sm:grid-cols-2">
+                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}" />
+                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}"/>
                     <x-field.select
                         name="genre"
                         :options="$arrayGenresCode"
@@ -26,7 +26,7 @@
                         label="Date"
                         :width="'md'"
                     />
-                    <x-button element="submit" text="Search" type="primary" class="mt-7"/>
+                    <x-button element="submit" text="Search" type="primary" class="mt-7 pb-4"/>
                 </form>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -34,8 +34,8 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:rotate-2 hover:scale-105">
                         <img src="{{ $movie->poster_full_url }}" alt="{{ $movie->title }}">
                         <div class="pb-0 p-2">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $movie->title }}</h4>
-                            <p class="text-gray-600 dark:text-gray-400">{{ $movie->genre->name }}</p>
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $movie?->title }}</h4>
+                            <p class="text-gray-600 dark:text-gray-400">{{ $movie->genre?->name }}</p>
                         </div>
                     </div>
                 @endforeach
