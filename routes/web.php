@@ -30,4 +30,4 @@ Route::resource("genres", GenreController::class);
 Route::resource('movies', MovieController::class);
 Route::get('/search', [MovieController::class, 'index'])->name('movies.index');
 Route::resource('theaters',TheaterController::class);
-//Route::delete('theater/{theater}/photo', [TheaterController::class, 'destroyPhoto'])->name('theater.photo.destroy')->can('update', 'theater');
+Route::delete('theater/{theater}/photo', [TheaterController::class, 'destroyPhoto'])->name('theater.photo.destroy')->can('update', 'theater');

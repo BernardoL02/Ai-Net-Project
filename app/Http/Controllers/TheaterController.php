@@ -93,7 +93,7 @@ class TheaterController extends \Illuminate\Routing\Controller
         }
 
         $url = route('theaters.show', ['theater' => $theater]);
-        $htmlMessage = "Theater <a href='$url'><u>{$theater->name}</u></a> ({$theater->abbreviation}) has been updated successfully!";
+        $htmlMessage = "Theater <a href='$url'><u>{$theater->name}</u></a> ({$theater->id}) has been updated successfully!";
 
         return redirect()->route('theaters.index')
             ->with('alert-type', 'success')

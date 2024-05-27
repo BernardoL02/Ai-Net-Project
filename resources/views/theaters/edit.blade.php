@@ -56,7 +56,7 @@
     </div>
 </div>
 <form class="hidden" id="form_to_delete_photo"
-    method="POST" action="{{ route('theaters.photo.destroy', ['theater' => $theater]) }}">
+    method="POST" action="{{ route('theater.photo.destroy', ['theater' => $theater]) }}">
     @csrf
     @method('DELETE')
 </form>
