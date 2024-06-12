@@ -43,6 +43,16 @@
                             selected="{{Route::currentRouteName()=='movies.index'}}"
                         />
 
+                        @if(Auth::user()?->type == 'A' || Auth::user()?->type == 'E')
+
+                            <x-menus.menu-item
+                            content="Dashboard"
+                            selectable="0"
+                            href="{{route('dashboard')}}"
+                            />
+
+                        @endif
+
                         <div class="grow"></div>
 
                         <!-- Menu Item: Cart -->

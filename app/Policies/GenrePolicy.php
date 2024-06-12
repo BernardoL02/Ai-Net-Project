@@ -13,7 +13,7 @@ class GenrePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -21,7 +21,7 @@ class GenrePolicy
      */
     public function view(User $user, Genre $genre): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -29,7 +29,7 @@ class GenrePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -37,7 +37,7 @@ class GenrePolicy
      */
     public function update(User $user, Genre $genre): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -45,7 +45,7 @@ class GenrePolicy
      */
     public function delete(User $user, Genre $genre): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -53,7 +53,7 @@ class GenrePolicy
      */
     public function restore(User $user, Genre $genre): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 
     /**
@@ -61,6 +61,6 @@ class GenrePolicy
      */
     public function forceDelete(User $user, Genre $genre): bool
     {
-        return true;
+        return $user->type == 'A';
     }
 }
