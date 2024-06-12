@@ -21,7 +21,7 @@
             </button>
             <!-- Logo -->
             <div class="hidden lg:sidebar-expanded:block text-xl pt-1 text-white">Dashboard</div>
-            <a class="block" href="#">
+            <a class="block" href="{{route('dashboard')}}">
 
                 <svg class="w-[40px] h-[40px] text-white" width="24" height="24" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -77,6 +77,23 @@
                             @endphp
                         @endcan
                         <x-menus.admin-group-menu-items title="Genres" :options="$options">
+                            <svg class="w-6 h-6 text-gray-400 dark:text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 21v-13l9-4l9 4v13" />  <path d="M13 13h4v8h-10v-6h6" />  <path d="M13 21v-9a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3" /></svg>
+
+                        </x-menus.admin-group-menu-items>
+                    @endcan
+
+                    @can('viewAny', App\Models\Movie::class)
+                        @php
+                            $options = [];
+                            //$options['All Movies'] = route('movies.index');
+                        @endphp
+
+                        @can('create', App\Models\Movie::class)
+                            @php
+                                $options['Add Movie'] = route('movie.create');
+                            @endphp
+                        @endcan
+                        <x-menus.admin-group-menu-items title="Movies" :options="$options">
                             <svg class="w-6 h-6 text-gray-400 dark:text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 21v-13l9-4l9 4v13" />  <path d="M13 13h4v8h-10v-6h6" />  <path d="M13 21v-9a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3" /></svg>
 
                         </x-menus.admin-group-menu-items>

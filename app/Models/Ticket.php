@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Seat;
+
 
 class Ticket extends Model
 {
@@ -37,7 +39,7 @@ class Ticket extends Model
 
     public function seat():BelongsTo
     {
+        //return $this->belongsTo(Seat::class())->withTrashed(); Como estava
         return $this->belongsTo(Seat::class)->withTrashed();
-
     }
 }
