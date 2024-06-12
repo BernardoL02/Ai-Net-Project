@@ -62,4 +62,9 @@ class ScreeningController extends Controller
     {
         //
     }
+
+    public function showCase(Screening $screening)
+    {
+        return view('screenings.showcase', compact('screening'));
+    }
 }

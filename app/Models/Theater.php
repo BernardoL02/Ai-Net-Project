@@ -18,13 +18,13 @@ class Theater extends Model
 
     public function screenings():HasMany
     {
-        return $this->hasMany(Screening::class());
+        return $this->hasMany(Screening::class);
 
     }
 
     public function seats():HasMany
     {
-        return $this->hasMany(Seat::class());
+        return $this->hasMany(Seat::class);
 
     }
 
@@ -36,4 +36,13 @@ class Theater extends Model
             return asset("img/no-img.jpg");
         }
     }
+
+    public function getRowsAttribute(){
+        return $this->seats()->orderBy("row")->pluck('row')->unique();
+    }
+
+    public function seatsRow($row){
+        return $this->seats()->where("row",$row)->orderBy('seat_number')->get();
+    }
+
 }

@@ -11,8 +11,8 @@
             </h1>
             <div>
                 <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4  grid grid-col-1 sm:grid-cols-2">
-                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-60" />
-                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-60"/>
+                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-64" />
+                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-64"/>
                     <x-field.select
                         name="genre"
                         :options="$arrayGenresCode"
@@ -20,7 +20,7 @@
                         :width="'md'"
                     />
 
-                    <x-field.select class="sm:w-60"
+                    <x-field.select
                         name="date"
                         :options="$screeningByDates"
                         label="Date"
@@ -38,13 +38,6 @@
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $movie?->title }}</h4>
                             <p class="text-gray-600 dark:text-gray-400">{{ $movie->genre?->name }}</p>
                         </div>
-                        @foreach($movie->screeningsDate($filterByDate) as $screening)
-                            <div>
-                                <a href="{{route('screenings.showcase',['screening'=>$screening])}}">
-                                    {{$screening->date}} {{$screening->start_time}}
-                                </a>
-                            </div>
-                        @endforeach
                     </div>
                 @endforeach
             </div>

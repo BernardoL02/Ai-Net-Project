@@ -61,22 +61,13 @@ class GenreController extends \Illuminate\Routing\Controller
     public function destroy(Genre $genre): RedirectResponse
     {
         try {
+            $genre->delete();
             $url = route('genres.show', ['genre' => $genre]);
 
             $totalMovies = $genre->movies()->count();
-            if ($totalMovies == 0) {
-                $genre->delete();
-                $alertType = 'success';
-                $alertMsg = "genre {$genre->name} ({$genre->code}) has been deleted successfully!";
-            } else {
-                $alertType = 'warning';
-                $justification = match (true) {
-                    $totalMovies <= 0 => "",
-                    $totalMovies == 1 => "there is 1 Movie in the genre",
-                    $totalMovies > 1 => "there are $totalMovies Movies in the genre",
-                };
-                $alertMsg = "genre <a href='$url'><u>{$genre->name}</u></a> ({$genre->code}) cannot be deleted because $justification.";
-            }
+            $alertMsg = "genre <a href='$url'><u>{$genre->name}</u></a> ({$genre->code}) cannot be deleted";
+            $alertType = "sucess";
+            $alertMsg = "delete sucessful";
         } catch (\Exception $error) {
             $alertType = 'danger';
             $alertMsg = "It was not possible to delete the genre

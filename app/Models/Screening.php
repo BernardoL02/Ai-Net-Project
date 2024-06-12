@@ -16,19 +16,19 @@ class Screening extends Model
 
     public function tickets():HasMany
     {
-        return $this->hasMany(Ticket::class());
+        return $this->hasMany(Ticket::class);
 
     }
 
     public function movie():BelongsTo
     {
-        return $this->belongsTo(Movie::class())->withTrashed();
+        return $this->belongsTo(Movie::class)->withTrashed();
 
     }
 
     public function theater():BelongsTo
     {
-        return $this->belongsTo(Theater::class())->withTrashed();
+        return $this->belongsTo(Theater::class)->withTrashed();
 
     }
 

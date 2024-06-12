@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
 {
@@ -24,7 +25,7 @@ class Movie extends Model
 
     public function screenings():HasMany
     {
-        return $this->hasMany(Screening::class());
+        return $this->hasMany(Screening::class);
 
     }
 
@@ -35,5 +36,16 @@ class Movie extends Model
         } else {
             return asset("img/default_poster.png");
         }
+    }
+
+    public function screeningsDate($dateFilter){
+
+        if($dateFilter != '-'){
+
+            return $this->screenings()->where('date','=', $dateFilter)->orderBy('start_time')->get();
+        }
+
+        return $this->screenings()->where('date','>=', Carbon::today())->where('date','<=', Carbon::today()->addWeeks(2))->orderBy('date')->orderBy('start_time')->get();
+
     }
 }

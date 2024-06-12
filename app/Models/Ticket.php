@@ -25,19 +25,19 @@ class Ticket extends Model
 
     public function purchase():BelongsTo
     {
-        return $this->belongsTo(Theater::class());
+        return $this->belongsTo(Theater::class);
 
     }
 
     public function screening():BelongsTo
     {
-        return $this->belongsTo(Screening::class());
+        return $this->belongsTo(Screening::class);
 
     }
 
     public function seat():BelongsTo
     {
-        return $this->belongsTo(Seat::class())->withTrashed();
+        return $this->belongsTo(Seat::class)->withTrashed();
 
     }
 }

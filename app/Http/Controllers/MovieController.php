@@ -45,6 +45,7 @@ class MovieController extends Controller
 
         }
 
+        $filterByDate = $request->date??'-';
         $moviesByScreening = $query->whereIn('id', $screenings)->get();
         $selectedGenre = $request->query('genre', '');
 
@@ -53,7 +54,7 @@ class MovieController extends Controller
         $screeningByDates = collect($screeningByDates)->sort();
         $screeningByDates = array('-' => 'All Dates') + $screeningByDates->toArray();
 
-        return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre', 'arrayGenresCode', 'screeningByDates'));
+        return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre', 'arrayGenresCode', 'screeningByDates', 'filterByDate'));
     }
 
 
@@ -62,7 +63,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $movie = new Movie();
+        $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
+
+        return view('movies.create', compact('movie', 'genres'));
     }
 
     /**
@@ -86,7 +90,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+
     }
 
     /**
@@ -104,5 +108,7 @@ class MovieController extends Controller
     {
         //
     }
+
+
 
 }

@@ -47,7 +47,7 @@
 
                         <!-- Menu Item: Cart -->
                         <x-menus.cart
-                            href="#"
+                            href="{{route('cart.show')}}"
                             selectable="0"
                             selected="1"
                             total="2"/>
