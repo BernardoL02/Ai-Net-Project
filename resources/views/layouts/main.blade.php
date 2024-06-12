@@ -60,7 +60,8 @@
                             href="{{route('cart.show')}}"
                             selectable="0"
                             selected="1"
-                            total="2"/>
+                            :total="collect(session('cart'))->count()"
+                            />
 
                             @auth
                                 <x-menus.submenu

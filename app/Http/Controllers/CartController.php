@@ -46,6 +46,10 @@ class CartController extends Controller
             $alertType = 'warning';
             $htmlMessage = "No seats were added to the cart";
         }
+
+        return back()
+        ->with('alert-msg', $htmlMessage)
+        ->with('alert-type', $alertType);
     }
 
     public function removeFromCart(Request $request, $id): RedirectResponse
