@@ -11,16 +11,16 @@
             </h1>
             <div>
                 <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4  grid grid-col-1 sm:grid-cols-2">
-                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-64" />
-                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-64"/>
-                    <x-field.select
+                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-60" />
+                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-60"/>
+                    <x-field.select class="sm:w-60"
                         name="genre"
                         :options="$arrayGenresCode"
                         label="Genre"
                         :width="'md'"
                     />
 
-                    <x-field.select
+                    <x-field.select class="sm:w-60"
                         name="date"
                         :options="$screeningByDates"
                         label="Date"
