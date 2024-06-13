@@ -31,7 +31,19 @@ Route::middleware('auth')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::resource('theaters',TheaterController::class);
             Route::delete('theater/{theater}/photo', [TheaterController::class, 'destroyPhoto'])->name('theater.photo.destroy')->can('update', 'theater');
+            Route::resource("genres", GenreController::class);
+            Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+            Route::resource('/purchases', PurchaseController::class);
 
+            //Create a receipt
+
+            Route::get('/receipt/{purchase}', [PDFController::class, 'generateReceipt'])->name('receipt.generatePDF');
+            Route::get('/purchases/{purchase}/receipt', [PDFController::class, 'showReceipt'])->name('receipt.show');
+            Route::get('/purchases/{purchase}/receipt/download', [PDFController::class, 'downloadReceipt'])->name('receipt.download');
+
+            //Tickets
+            Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
+            Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
         });
 
         Route::get('dashboard', function () {
@@ -41,8 +53,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::resource("genres", GenreController::class);
+
 Route::resource('movies', MovieController::class);
+Route::get('movies/{movie}/showcase', [MovieController::class, 'showcase'])->name('movies.showcase');
+
 
 
 Route::get('screening/{screening}/showcase', [ScreeningController::class,'showcase'])->name('screenings.showcase');
@@ -54,18 +68,7 @@ Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('cart', [CartController::class, 'confirm'])->name('cart.confirm');
 
 Route::get('/search', [MovieController::class, 'index'])->name('movies.index');
-Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-Route::resource('/purchases', PurchaseController::class);
 
-//Create a receipt
-
-Route::get('/receipt/{purchase}', [PDFController::class, 'generateReceipt'])->name('receipt.generatePDF');
-Route::get('/purchases/{purchase}/receipt', [PDFController::class, 'showReceipt'])->name('receipt.show');
-Route::get('/purchases/{purchase}/receipt/download', [PDFController::class, 'downloadReceipt'])->name('receipt.download');
-
-//Tickets
-Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
-Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
 
 
 require __DIR__ . '/auth.php';

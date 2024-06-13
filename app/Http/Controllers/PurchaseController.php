@@ -56,17 +56,21 @@ class PurchaseController extends Controller
 
     public function index(Request $request)
     {
+
         $filterByPaymentType = $request->query('type');
         $filterByPrice = $request->input('price');
         $filterByPriceOption= $request->priceOption;
         $purchasesQuery = Purchase::query();
 
-
         if ($filterByPaymentType !== null) {
             $purchasesQuery->where('payment_type', $filterByPaymentType);
         }
 
+        //Verificar se a query está correta
+        if($request->filled('email')){
 
+            $purchasesQuery->where('customer_email', $request->email)->pluck('customer_email');
+        }
 
         if ($filterByPrice !== null) {
             if($filterByPriceOption == 0){
@@ -78,9 +82,6 @@ class PurchaseController extends Controller
             }
 
         }
-
-
-
 
         $purchases = $purchasesQuery->orderby('customer_name')->paginate(20)->withQueryString();                                /* ->orderby('total_price') */
         return view(

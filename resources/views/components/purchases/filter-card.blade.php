@@ -3,13 +3,14 @@
         <div class="flex justify-between space-x-3">
             <div class="grow flex flex-col space-y-2">
 
-                <div>
-                        <x-field.select name="type" label="Type"
-                        value="{{ $type }}"
-                        :options="$listPayments"/>
+                <div class="flex space-x-3">
+                    <x-field.select name="type" label="Type"
+                    value="{{ $type }}"
+                    :options="$listPayments"/>
+                    <!-- Input field do email-->
+                    <x-field.input name="email" label="Customer Email " class="grow"
+                        value="{{ $email }}"/>
                 </div>
-
-
 
                 <div class="flex space-x-3">
                     <x-field.input name="price" label="Price " class="grow"

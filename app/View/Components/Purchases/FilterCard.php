@@ -11,6 +11,7 @@ class FilterCard extends Component
      public array $listPayments;
      public array $listOptionPrice;
 
+
     public function __construct(
        // public array $types,
         public string $filterAction,
@@ -19,7 +20,7 @@ class FilterCard extends Component
         public ?string $type = null,
         public ?int $price = null ,
         public ?string $priceOption=null,
-
+        public ?string $email=null,
     )
     {
 
@@ -36,6 +37,7 @@ class FilterCard extends Component
             1 => 'Below',
 
         ];
+
     }
 
     /**

@@ -48,4 +48,23 @@ class Movie extends Model
         return $this->screenings()->where('date','>=', Carbon::today())->where('date','<=', Carbon::today()->addWeeks(2))->orderBy('date')->orderBy('start_time')->get();
 
     }
+
+
+
+    public function getYouTubeVideoUrl()
+    {
+        return $this->trailer_url;
+    }
+
+
+
+    public function getTrailerEmbedUrlAttribute()
+    {
+        if (str_contains($this->getYouTubeVideoUrl(), 'watch?v=')) {
+            return str_replace('watch?v=', 'embed/', $this->getYouTubeVideoUrl());
+        } else {
+            return $this->getYouTubeVideoUrl();
+        }
+    }
+
 }

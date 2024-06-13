@@ -102,39 +102,21 @@ class MovieController extends Controller
         return view('movies.show', compact('movie', 'genres'));
     }
 
-    public function showMovies(Request $request): View
+    public function showcase(Movie $movie, Request $request)
     {
-        $genres = Genre::orderBy('name')->pluck('name', 'code')->toArray();
-        $genres = array_merge([null => 'Any genre'], $genres);
-        $filterByGenre = $request->query('genre');
-        $filterByTitle = $request->query('title');
-        $filterByYear = $request->query('year');
+        $date = date("Y-m-d");
+        $endDate = date("Y-m-d", strtotime("+2 weeks"));
+        $filterByDate = $request->date??'-';
+        $screeningByDates = Screening::whereBetween('date', [$date, $endDate])
+            ->pluck('date')
+            ->unique()
+            ->toArray();
+        $screeningByDates = array_combine($screeningByDates, $screeningByDates);
+        $screeningByDates = ['-' => 'All Dates'] + $screeningByDates;
 
-        $moviesQuery = Movie::query();
+        $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
 
-        // Ver o between
-        $movies_id = Screening::where('date', '>=', Carbon::today())
-            ->where('date', '<=', Carbon::today()->addWeeks(2))->pluck('movie_id')->unique();
-
-        $moviesQuery->whereIntegerInRaw('id', $movies_id);
-
-        if ($filterByGenre !== null) {
-            $moviesQuery->where('genre_code', $filterByGenre);
-        }
-
-        if ($filterByTitle !== null) {
-            $moviesQuery->where(function ($query) use ($filterByTitle) {
-
-                $query->where('title', 'like', "%$filterByTitle%")->orWhere('synopsis', 'like', "%$filterByTitle%");
-            });
-        }
-
-        if ($filterByYear !== null) {
-            $moviesQuery->where('year', $filterByYear);
-        }
-
-        $movies = $moviesQuery->with('genre')->paginate(10);
-        return view('movies.showcase', compact('movies', 'genres', 'filterByGenre', 'filterByTitle', 'filterByYear'));
+        return view('movies.showcase', compact('movie', 'genres', 'screeningByDates','filterByDate'));
     }
 
     /**
@@ -225,5 +207,7 @@ class MovieController extends Controller
         }
         return redirect()->back();
     }
+
+
 
 }

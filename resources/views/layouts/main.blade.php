@@ -31,13 +31,12 @@
                             <div class="h-14 w-14 mt-1 mr-2 bg-cover bg-[url('../img/home.png')] dark:bg-[url('../img/home.png')]"></div>
                         </a>
                     </div>
-
                     <!-- Menu Items -->
                     <div id="menu-container" class="grow flex flex-col sm:flex-row items-stretch
                     invisible h-0 sm:visible sm:h-auto">
                         <!-- Menu Item: Filmes -->
                         <x-menus.menu-item
-                            content="Filmes"
+                            content="Movies"
                             selectable="1"
                             href="{{route('movies.index')}}"
                             selected="{{Route::currentRouteName()=='movies.index'}}"

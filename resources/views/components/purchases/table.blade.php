@@ -2,10 +2,6 @@
     <table class="table-auto border-collapse">
         <thead>
         <tr class="border-b-2 border-b-gray-400 dark:border-b-gray-500 bg-gray-100 dark:bg-gray-800">
-             {{-- <th class="px-2 py-2 text-left">Name</th>
-           @if($showDepartment)
-                <th class="px-2 py-2 text-left hidden lg:table-cell">Department</th>
-            @endif --}}
             <th class="px-2 py-2 text-left hidden md:table-cell">Customer´s name</th>
             <th class="px-2 py-2 text-left hidden xl:table-cell">Customer´s email</th>
             <th class="px-2 py-2 text-right hidden xl:table-cell">Total price</th>

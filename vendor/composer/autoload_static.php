@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
+class ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -385,8 +385,8 @@ class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -612,6 +612,7 @@ class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
         'App\\Http\\Controllers\\TicketController' => __DIR__ . '/../..' . '/app/Http/Controllers/TicketController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\CartConfirmationFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CartConfirmationFormRequest.php',
         'App\\Http\\Requests\\GenreFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/GenreFormRequest.php',
         'App\\Http\\Requests\\MovieFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/MovieFormRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
@@ -632,6 +633,7 @@ class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
         'App\\Policies\\TheaterPolicy' => __DIR__ . '/../..' . '/app/Policies/TheaterPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\TelescopeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/TelescopeServiceProvider.php',
+        'App\\Services\\Payment' => __DIR__ . '/../..' . '/app/Services/Payment.php',
         'App\\View\\Components\\Alert' => __DIR__ . '/../..' . '/app/View/Components/Alert.php',
         'App\\View\\Components\\Button' => __DIR__ . '/../..' . '/app/View/Components/Button.php',
         'App\\View\\Components\\Field\\CheckBox' => __DIR__ . '/../..' . '/app/View/Components/Field/CheckBox.php',
@@ -5850,6 +5852,7 @@ class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
         'Spatie\\FlareClient\\Http\\Response' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Http/Response.php',
         'Spatie\\FlareClient\\Report' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Report.php',
         'Spatie\\FlareClient\\Solutions\\ReportSolution' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Solutions/ReportSolution.php',
+        'Spatie\\FlareClient\\Support\\PhpStackFrameArgumentsFixer' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Support/PhpStackFrameArgumentsFixer.php',
         'Spatie\\FlareClient\\Time\\SystemTime' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Time/SystemTime.php',
         'Spatie\\FlareClient\\Time\\Time' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Time/Time.php',
         'Spatie\\FlareClient\\Truncation\\AbstractTruncationStrategy' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Truncation/AbstractTruncationStrategy.php',
@@ -7046,9 +7049,9 @@ class ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6fd95b620bc94def14b75e360d8c4beb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f::$classMap;
 
         }, null, ClassLoader::class);
     }
