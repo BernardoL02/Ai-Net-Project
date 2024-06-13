@@ -63,7 +63,6 @@
 @endphp
 <div {{ $attributes }}>
     @if ($element == 'a')
-
         <a href="{{ $href }}"
             class="px-4 py-2 inline-block border border-transparent rounded-md
                     font-medium text-sm tracking-widest

@@ -42,6 +42,12 @@
             </div>
 
             <div>
+                <x-input-label for="payment_ref" :value="__('Payment Reference')" />
+                <x-text-input id="payment_ref" name="payment_ref" type="text" class="mt-1 block w-full" :value="old('payment_ref', $customer?->payment_ref)" autocomplete="payment_ref" />
+                <x-input-error class="mt-2" :messages="$errors->get('payment_ref')" />
+            </div>
+
+            <div>
                 <x-input-label for="email" :value="__('Email')" />
                 <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user?->email)" required autocomplete="username" />
                 <x-input-error class="mt-2" :messages="$errors->get('email')" />

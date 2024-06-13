@@ -59,7 +59,6 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-
         $customer = Customer::where('id', $request->user()->id)->first();
 
         if (!$customer) {
@@ -67,6 +66,7 @@ class ProfileController extends Controller
             $customer->id = $request->user()->id;
             $customer->nif = $request->nif ?? null;
             $customer->payment_type = $request->payment_type ?? null;
+            $customer->payment_ref = $request->payment_ref ?? null;
         }
         else{
             if ($request->has('nif')) {
@@ -75,6 +75,10 @@ class ProfileController extends Controller
 
             if ($request->has('payment_type')) {
                 $customer->payment_type = $request->payment_type;
+            }
+
+            if ($request->has('payment_ref')) {
+                $customer->payment_ref= $request->payment_ref;
             }
         }
 

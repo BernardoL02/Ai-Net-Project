@@ -51,7 +51,7 @@ Route::post('cart/{screening}', [CartController::class, 'addToCart'])->name('car
 Route::delete('cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::get('cart', [CartController::class, 'show'])->name('cart.show');
 Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::post('cart', [CartController::class, 'confirm'])->name('cart.confirm')->can('confirm-cart');
+Route::post('cart', [CartController::class, 'confirm'])->name('cart.confirm');
 
 Route::get('/search', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
