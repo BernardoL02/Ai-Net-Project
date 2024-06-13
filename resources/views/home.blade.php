@@ -7,19 +7,21 @@
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="my-4 p-6 bg-white dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
             <h3 class="pb-3 font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">
-                Cinema Liz o melhor em sua casa
+                Cinema Liz
             </h3>
 
-        <h6>
-            <p>O Cinema Liz é um encantador e contemporâneo cinema conhecido pela sua combinação única de comodidades modernas e charme cinematográfico clássico. Localizado no coração da cidade de Leiria, o Cinema Liz tornou-se um amado ponto cultural para entusiastas de filmes de todas as idades. O cinema oferece uma seleção diversificada de filmes, desde os mais recentes sucessos de bilheteria de Hollywood até produções independentes e internacionais, atendendo a uma ampla gama de gostos e interesses.</p>
-            <br>
-            <p>Ao entrar no Cinema Liz, os visitantes são recebidos por um saguão elegante, inspirado no estilo retrô, adornado com cartazes de filmes vintage e toques de arte déco, criando uma atmosfera acolhedora e nostálgica. O cinema conta com sistemas de projeção e som de última geração, garantindo uma experiência de visualização premium em cada uma de suas confortáveis e bem-equipadas salas de exibição. Assentos macios, amplo espaço para as pernas e um layout íntimo contribuem para o ambiente convidativo do cinema, tornando-o o lugar perfeito para desfrutar de um filme com familiares e amigos.</p>
-            <br>
-            <p>O Cinema Liz também oferece um gourmet de lanches que vai além da típica comida de cinema. Os frequentadores podem saborear petiscos artesanais, pipoca gourmet e uma seleção de bebidas artesanais, de forma a melhorar a experiência geral de ver um filme. Além disso, o cinema organiza eventos especiais, como festivais de cinema, sessões de perguntas e respostas com diretores e noites temáticas, promovendo uma vibrante comunidade de cinéfilos.</p>
-            <br>
-            <p>Com seu compromisso em proporcionar uma experiência cinematográfica de primeira classe e a sua dedicação em celebrar a arte do cinema, o Cinema Liz destaca-se como um destino de excelência para os amantes de filmes que procuram entretenimento e um toque de nostalgia.</p>
-        </h6>
+            <h6>
+                <p>Cinema Liz is a charming and contemporary cinema known for its unique blend of modern amenities and classic cinematic charm. Located in the heart of Leiria, Cinema Liz has become a beloved cultural spot for movie enthusiasts of all ages. The cinema offers a diverse selection of films, from the latest Hollywood blockbusters to independent and international productions, catering to a wide range of tastes and interests.</p>
+                <br>
+                <p>Upon entering Cinema Liz, visitors are greeted by an elegant, retro-inspired lobby adorned with vintage movie posters and art deco touches, creating a cozy and nostalgic atmosphere. The cinema features state-of-the-art projection and sound systems, ensuring a premium viewing experience in each of its comfortable and well-equipped screening rooms. Soft seats, ample legroom, and an intimate layout contribute to the inviting ambiance of the cinema, making it the perfect place to enjoy a movie with family and friends.</p>
+                <br>
+                <p>Cinema Liz also offers a gourmet snack bar that goes beyond typical movie theater food. Patrons can savor artisanal snacks, gourmet popcorn, and a selection of craft beverages, enhancing the overall movie-going experience. Additionally, the cinema hosts special events such as film festivals, Q&A sessions with directors, and themed nights, fostering a vibrant community of film lovers.</p>
+                <br>
+                <p>With its commitment to providing a first-class cinematic experience and its dedication to celebrating the art of cinema, Cinema Liz stands out as a premier destination for movie lovers seeking entertainment and a touch of nostalgia.</p>
+            </h6>
+        </div>
     </div>
+
     </div>
 </main>
 @endsection
