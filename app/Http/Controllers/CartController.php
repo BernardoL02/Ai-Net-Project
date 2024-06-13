@@ -23,7 +23,8 @@ class CartController extends Controller
     {
         $cart = session('cart', []);
 
-        $seats=$request->seats??[];
+        $seats = $request->seats ?? [];
+        $rows = $request->rows ?? [];
         $seats_adicionados = [];
         foreach($seats as $seat_id){
             $id = $screening->id.'_'.$seat_id;
@@ -41,7 +42,6 @@ class CartController extends Controller
             return back()
                 ->with('alert-msg', $htmlMessage)
                 ->with('alert-type', $alertType);
-
         }else{
             $alertType = 'warning';
             $htmlMessage = "No seats were added to the cart";

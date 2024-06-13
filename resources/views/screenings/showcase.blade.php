@@ -11,7 +11,7 @@
                         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-lg flex flex-col">
 
                             <div class="flex flex-row">
-                                <img class="w-[280px] h-[370px] mr-10 shadow-2xl border-[6px] border-white"
+                                <img class="w-[280px] h-[370px] mr-10 shadow-2xl border-8 border-white"
                                 src="{{ $screening->movie->poster_full_url }}" alt="{{ $screening->movie->title }}">
 
                                 <div>
@@ -21,12 +21,12 @@
                                     <div class="pt-6 space-y-4">
                                         <div> <h3 class="text-lg font-semibold">Date </h3> <p> {{ $screening->date}}  </p> </div>
                                         <div> <h3 class="text-lg font-semibold">Start Time </h3> <p> {{ $screening->start_time}}  </p> </div>
-                                        <div> <h3 class="text-lg font-semibold">Cinema </h3> <p> {{ $screening->theater->name}}  </p> </div>
+                                        <div> <h3 class="text-lg font-semibold">Theater </h3> <p> {{ $screening->theater->name}}  </p> </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pt-12">
+                            <div class="pt-16">
                                 <div class="pb-5">
                                     <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Choose your seats</h2>
                                     <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">Please select the seats you would like to purchase from the seating plan below. Seats that are already reserved are marked in <span class="text-red-700">red</span>. Click on the available seats to add them to your cart. </p>
@@ -46,16 +46,16 @@
 
                                                                 <div class="relative mt-3 ml-2">
                                                                     <input class="sr-only peer" type="checkbox" disabled
-                                                                        id="row_{{ $row}}_seat_{{ $seat->seat_number }}">
+                                                                        id="row_{{$row}}_seat_{{ $seat->seat_number }}">
 
                                                                     <label
                                                                         class=" w-10 h-10 bg-red-700 border border-gray-300 rounded-lg inline-block text-center pt-2"
-                                                                        for="row_{{ $row}}_seat_{{ $seat->seat_number }}">{{ $seat->seat_number }}</label>
+                                                                        for="row_{{$row}}_seat_{{ $seat->seat_number }}">{{ $seat->seat_number }}</label>
                                                                 </div>
                                                             @else
                                                                 <div class="relative mt-3 ml-2 " >
 
-                                                                    <input class="sr-only peer" type="checkbox" value="{{ $seat->seat_number }}" name="seats[]"
+                                                                    <input class="sr-only peer" type="checkbox" value="{{ $seat->id }}" name="seats[]"
                                                                         id="row_{{ $row}}_seat_{{ $seat->seat_number }}">
                                                                     <label
                                                                         class=" w-10 h-10 bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:ring-green-500 peer-checked:ring-2 peer-checked:border-transparent inline-block text-center pt-2"

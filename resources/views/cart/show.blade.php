@@ -10,32 +10,38 @@
                 <h3 class="text-xl w-96 text-center">Cart is Empty</h3>
             @else
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-                <table class="table w-full">
-                    <tr>
-                    <th>Filme</th>
-                    <th>Sessão</th>
-                    <th>Sala</th>
-                    <th>Lugar</th>
-                    <th></th>
-                    </tr>
-                    @foreach($cart as $id=>$item)
-                    <tr>
-                        <td> <img src="{{$item['screening']->movie->poster_full_url}}" alt=""  class="h-24">
-                        <br>
-                         {{$item['screening']->movie->title}}
-                        </td>
-                        <td> {{$item['screening']->date.' '.$item['screening']->start_time}} </td>
-                        <td> {{$item['screening']->theater->name}}</td>
-                        <td> {{$item['seat']->row.$item['seat']->seat_number}}</td>
-                        <td>
-                            <x-table.icon-minus class="px-0.5" method="delete"
-                            action="{{ route('cart.remove', ['id' => $id]) }}"/>
-                        </td>
-                    </tr>
-
-                    @endforeach
+                <table class="table-auto w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 border border-gray-300">Movie</th>
+                            <th class="px-4 py-2 border border-gray-300">Session</th>
+                            <th class="px-4 py-2 border border-gray-300">Theater</th>
+                            <th class="px-4 py-2 border border-gray-300">Seat</th>
+                            <th class="px-4 py-2 border border-gray-300"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($cart as $id=>$item)
+                        <tr class="bg-white hover:bg-gray-100">
+                            <td class="px-4 py-2 border border-gray-300">
+                                <div class="flex items-center">
+                                    <img src="{{$item['screening']->movie->poster_full_url}}" alt="{{$item['screening']->movie->title}}" class="h-28 w-18 border-2 border-black mr-4">
+                                    <p class="text-base">{{$item['screening']->movie->title}}</p>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-300 text-center">
+                                <p>{{$item['screening']->date}}</p>
+                                <p>{{$item['screening']->start_time}}</p>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-300 text-center">{{$item['screening']->theater->name}}</td>
+                            <td class="px-4 py-2 border border-gray-300 text-center">{{$item['seat']->row.$item['seat']->seat_number}}</td>
+                            <td class="px-4 py-2 border border-gray-300 text-center">
+                                <x-table.icon-minus method="delete" action="{{ route('cart.remove', ['id' => $id]) }}" class="text-red-600 hover:text-red-800 cursor-pointer"/>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
-
             </div>
             <div class="mt-12">
                 <div class="flex justify-between space-x-12 items-end">
