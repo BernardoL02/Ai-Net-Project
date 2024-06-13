@@ -1,0 +1,34 @@
+@extends('layouts.admin')
+
+@section('header-title', 'New Movie')
+
+@section('main')
+<div class="flex flex-col space-y-6">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-900 shadow sm:rounded-lg">
+        <div class="max-full">
+            <section>
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                        New Movie
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300  mb-6">
+                        Click on "Save" button to store the information.
+                    </p>
+                </header>
+
+                <form method="POST" action="{{ route('movies.store') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @php
+                        $genre = new \App\Models\Genre; // Assuming you have a Genre model, create an empty instance
+                    @endphp
+                    @include('movies.shared.fields', ['mode' => 'create', 'genre' => $genre])
+                    <div class="flex mt-6">
+                        <x-button element="submit" type="dark" text="Save new movie" class="uppercase"/>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+@endsection

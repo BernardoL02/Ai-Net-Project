@@ -63,12 +63,15 @@
 @endphp
 <div {{ $attributes }}>
     @if ($element == 'a')
+
         <a href="{{ $href }}"
             class="px-4 py-2 inline-block border border-transparent rounded-md
                     font-medium text-sm tracking-widest
                     focus:outline-none focus:ring-2
                     focus:ring-indigo-500 dark:focus:ring-indigo-400
-                    focus:ring-offset-2 transition ease-in-out duration-150 {{ $colors }}">
+                    focus:ring-offset-2 transition ease-in-out duration-150 {{ $colors }}" @if($newTab == 'true')
+                    target="_blank"
+                @endif >
             {{ $text }}
         </a>
     @else

@@ -16,14 +16,16 @@
                         {{-- Creates a receipt --}}
                         href="{{ route('receipt.generatePDF',['purchase' => $purchase]) }}"
                         text="Download receipt"
-                        type="success"/>
+                        type="success" />
 
                     @else
 
                         <x-button
-                        href="{{ route('receipt.show',['purchase' => $purchase]) }}"
-                        text="View receipt"
-                        type="success"/>
+                            href="{{ route('receipt.show',['purchase' => $purchase]) }}"
+                            newTab="true"
+                            text="View receipt"
+                            type="success"
+                        />
 
                         <x-button
                         {{-- This dowloands the already existing one --}}

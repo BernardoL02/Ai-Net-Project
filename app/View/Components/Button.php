@@ -17,6 +17,7 @@ class Button extends Component
         public string $text = '',
         public string $href = '#',
         public string $type = 'dark',
+        public string $newTab = 'false',
     ) {
         $this->element = strtolower($element);
         if (!in_array($this->element, ['a', 'button', 'submit', 'reset'], true)) {

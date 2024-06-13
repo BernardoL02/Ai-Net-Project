@@ -50,7 +50,7 @@
                     <p><span class="label">Email:</span> {{ $purchase->customer_email ?? 'Not registered' }}</p>
                     @if ($purchase->customer_id != null)
                         <p><img src="{{ $purchase->customer->user->photo_filename }}" alt=""
-                                style="width: 65px; height: 65px;"></p>
+                                style="width: 65px; height: 65px; "></p>
                     @endif
 
                     @if ($download == true)
@@ -122,12 +122,9 @@
 
                                         </td>
                                         <td style="width: 220px;">
-
-
-
                                             <div class="flex items-center">
                                                 <img src="{{ $ticket->screening->movie->posterFullUrl }}"
-                                                    alt="" style="width: 50px; height: 65px;">
+                                                    alt="" style="width: 50px; height: 65px; margin-top:20px;">
                                                 {{ $ticket->screening->movie->title }}
                                             </div>
                                         </td>
@@ -184,7 +181,7 @@
 
                                             <div class="flex items-center">
                                                 <img src="{{ $ticket->screening->movie->posterFullUrl }}"
-                                                    alt="" style="width: 50px; height: 65px;">
+                                                    alt="" style="width: 50px; height: 65px;margin-top:20px;">
                                                 {{ $ticket->screening->movie->title }}
                                             </div>
                                         </td>

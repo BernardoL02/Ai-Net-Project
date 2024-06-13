@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('header-title', 'Movie "' . $movie->name . '"')
+@section('header-title', isset($movie) ? 'Movie "' . $movie->name . '"' : 'Movie not found')
 
 @section('main')
 <div class="flex flex-col space-y-6">

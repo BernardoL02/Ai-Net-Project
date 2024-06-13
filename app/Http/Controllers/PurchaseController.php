@@ -12,22 +12,15 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-
-
     public function getReceipt(Purchase $purchase){
 
 
         if($purchase->receipt_pdf_filename){
             return Storage::response("pdf_purchases/".$purchase->receipt_pdf_filename);
-            // ou Storage::download("pdf_purchases/".$purchase->receipt_pdf_filename);
-
 
         }else{
             return null;
         }
-
-
     }
 
     public function showTickets(Purchase $purchase){

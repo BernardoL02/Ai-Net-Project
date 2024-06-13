@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Movie;
+use App\Models\Purchase;
 use App\Models\User;
 
-class MoviePolicy
+class PurchasePolicy
 {
     /**
      * Create a new policy instance.
@@ -15,7 +15,7 @@ class MoviePolicy
         return $user->type == 'A';
     }
 
-    public function view(User $user, Movie $movie): bool
+    public function view(User $user, Purchase $purchase): bool
     {
         return $user->type == 'A';
     }
@@ -31,7 +31,7 @@ class MoviePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Movie $movie): bool
+    public function update(User $user, Purchase $purchase): bool
     {
         return $user->type == 'A';
     }
@@ -39,7 +39,7 @@ class MoviePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Movie $movie): bool
+    public function delete(User $user, Purchase $purchase): bool
     {
         return $user->type == 'A';
     }
@@ -47,7 +47,7 @@ class MoviePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Movie $movie): bool
+    public function restore(User $user, Purchase $purchase): bool
     {
         return $user->type == 'A';
     }
@@ -55,7 +55,7 @@ class MoviePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Movie $movie): bool
+    public function forceDelete(User $user, Purchase $purchase): bool
     {
         return $user->type == 'A';
     }

@@ -3,11 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-<<<<<<< Updated upstream
-        'reference' => '69717689d92b1a2dab7ab356fd882fcc239779fe',
-=======
-        'reference' => '3b850f19251d5475e53443f9a970e6e562d0f2cc',
->>>>>>> Stashed changes
+        'reference' => 'c5dfda093391258506035c79bbc41f70b3dfdad2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -422,11 +418,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< Updated upstream
-            'reference' => '69717689d92b1a2dab7ab356fd882fcc239779fe',
-=======
-            'reference' => '3b850f19251d5475e53443f9a970e6e562d0f2cc',
->>>>>>> Stashed changes
+            'reference' => 'c5dfda093391258506035c79bbc41f70b3dfdad2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -565,9 +557,9 @@
             ),
         ),
         'myclabs/deep-copy' => array(
-            'pretty_version' => '1.11.1',
-            'version' => '1.11.1.0',
-            'reference' => '7284c22080590fb39f2ffa3e9057f10a4ddd0e0c',
+            'pretty_version' => '1.12.0',
+            'version' => '1.12.0.0',
+            'reference' => '3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
@@ -828,8 +820,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1042,28 +1034,37 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'spatie/error-solutions' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => '202108314a6988ede156fba1b3ea80a784c1734a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/error-solutions',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'spatie/flare-client-php' => array(
-            'pretty_version' => '1.6.0',
-            'version' => '1.6.0.0',
-            'reference' => '220a7c8745e9fa427d54099f47147c4b97fe6462',
+            'pretty_version' => '1.7.0',
+            'version' => '1.7.0.0',
+            'reference' => '097040ff51e660e0f6fc863684ac4b02c93fa234',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/flare-client-php',
             'aliases' => array(),
             'dev_requirement' => true,
         ),
         'spatie/ignition' => array(
-            'pretty_version' => '1.14.2',
-            'version' => '1.14.2.0',
-            'reference' => '5e11c11f675bb5251f061491a493e04a1a571532',
+            'pretty_version' => '1.15.0',
+            'version' => '1.15.0.0',
+            'reference' => 'e3a68e137371e1eb9edc7f78ffa733f3b98991d2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/ignition',
             'aliases' => array(),
             'dev_requirement' => true,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '2.7.0',
-            'version' => '2.7.0.0',
-            'reference' => 'f52124d50122611e8a40f628cef5c19ff6cc5b57',
+            'pretty_version' => '2.8.0',
+            'version' => '2.8.0.0',
+            'reference' => '3c067b75bfb50574db8f7e2c3978c65eed71126c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),

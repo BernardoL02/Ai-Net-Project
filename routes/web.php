@@ -15,10 +15,6 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ScreeningController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-// REPLACE THIS
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
 
 //WITH THIS
 Route::view('/', 'home')->name('home');
@@ -47,7 +43,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource("genres", GenreController::class);
 Route::resource('movies', MovieController::class);
-Route::get('movies', [MovieController::class, 'index'])->name('movies.index');
 
 
 Route::get('screening/{screening}/showcase', [ScreeningController::class,'showcase'])->name('screenings.showcase');
@@ -58,8 +53,10 @@ Route::get('cart', [CartController::class, 'show'])->name('cart.show');
 Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('cart', [CartController::class, 'confirm'])->name('cart.confirm')->can('confirm-cart');
 
+Route::get('/search', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-Route::resource('purchases', PurchaseController::class);
+Route::resource('/purchases', PurchaseController::class);
+
 //Create a receipt
 
 Route::get('/receipt/{purchase}', [PDFController::class, 'generateReceipt'])->name('receipt.generatePDF');
@@ -69,5 +66,6 @@ Route::get('/purchases/{purchase}/receipt/download', [PDFController::class, 'dow
 //Tickets
 Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
 Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
+
 
 require __DIR__ . '/auth.php';

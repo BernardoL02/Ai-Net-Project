@@ -22,14 +22,12 @@
         }
 
         .flex {
-    display: flex;
-}
+            display: flex;
+        }
 
-.items-center {
-    align-items: center;
-}
-
-
+        .items-center {
+            align-items: center;
+        }
     </style>
 </head>
 
