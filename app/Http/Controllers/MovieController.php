@@ -204,6 +204,8 @@ class MovieController extends Controller
                             because there was an error with the operation!";
         }
 
+
+
         return redirect()->route('movies.index')
             ->with('alert-type', $alertType)
             ->with('alert-msg', $alertMsg);
