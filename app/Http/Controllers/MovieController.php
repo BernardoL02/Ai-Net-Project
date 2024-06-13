@@ -203,6 +203,7 @@ class MovieController extends Controller
                             <a href='$url'><u>{$movie->title}</u></a> ({$movie->id})
                             because there was an error with the operation!";
         }
+
         return redirect()->route('movies.index')
             ->with('alert-type', $alertType)
             ->with('alert-msg', $alertMsg);
