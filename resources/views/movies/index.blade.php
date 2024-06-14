@@ -18,6 +18,7 @@
                         :options="$arrayGenresCode"
                         label="Genre"
                         :width="'md'"
+                        value="{{ request('genre') }}"
                     />
 
                     <x-field.select
@@ -25,6 +26,7 @@
                         :options="$screeningByDates"
                         label="Date"
                         :width="'md'"
+                        value="{{ request('date') }}"
                     />
                     <x-button element="submit" text="Search" type="primary" class="mt-7"/>
                 </form>

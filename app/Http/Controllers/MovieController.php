@@ -5,6 +5,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Screening;
+use App\Models\Theater;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -106,17 +107,46 @@ class MovieController extends Controller
     {
         $date = date("Y-m-d");
         $endDate = date("Y-m-d", strtotime("+2 weeks"));
-        $filterByDate = $request->date??'-';
-        $screeningByDates = Screening::whereBetween('date', [$date, $endDate])
-            ->pluck('date')
-            ->unique()
-            ->toArray();
+        $filterByDate = $request->date ?? '-';
+        $filterByTime = $request->time ?? null;
+        $theaterId = $request->theater_id ?? null;
+
+        $screeningQuery = Screening::whereBetween('date', [$date, $endDate])
+                                   ->where('movie_id', $movie->id);
+
+        if ($filterByDate !== '-') {
+            $screeningQuery->where('date', $filterByDate);
+        }
+
+        if ($filterByTime) {
+            $screeningQuery->where('start_time', $filterByTime);
+        }
+
+        $screenings = $screeningQuery->get();
+        $startTimes = $screenings->unique('start_time')->pluck('start_time')->toArray();
+
+        $screeningByDates = $screenings->pluck('date')->unique()->toArray();
         $screeningByDates = array_combine($screeningByDates, $screeningByDates);
         $screeningByDates = ['-' => 'All Dates'] + $screeningByDates;
 
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
 
-        return view('movies.showcase', compact('movie', 'genres', 'screeningByDates','filterByDate'));
+        return view('movies.showcase', compact('movie', 'genres', 'screeningByDates', 'filterByDate', 'startTimes'));
+    }
+
+    public function screeningId(Movie $movie, Request $request)
+    {
+        $screening = Screening::where('movie_id', $movie->id)
+                              ->where('date', $request->date)
+                              ->first();
+
+        if ($screening) {
+            return redirect()->route('screenings.showcase', ['screening' => $screening->id]);
+        } else {
+            return redirect()->route('movies.showcase', $movie)
+                             ->withErrors(['error' => 'Screening not found'])
+                             ->withInput();
+        }
     }
 
     /**

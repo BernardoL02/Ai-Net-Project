@@ -8,10 +8,11 @@
             <div class="mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
                 <div class="mx-auto py-12">
                     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-lg flex flex-col">
-                            <div class="flex flex-row">
-                                <img class="w-[280px] h-[370px] mr-10 shadow-2xl border-8 border-white"
-                                     src="{{ $movie->poster_full_url }}" alt="{{ $movie->title }}">
+                        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-lg flex flex-row">
+                            <img class="w-[280px] h-[370px] mr-10 shadow-2xl border-8 border-white"
+                                 src="{{ $movie->poster_full_url }}" alt="{{ $movie->title }}">
+
+                            <div class="flex flex-col">
                                 <div>
                                     <h3 class="text-3xl font-bold">{{ $movie->title }}</h3>
                                     <p class="text-base">{{ $movie->genre->name }}</p>
@@ -28,39 +29,42 @@
                                             <h3 class="text-lg font-semibold">Trailer</h3>
                                             @if($movie?->getTrailerEmbedUrlAttribute())
                                                 <div class="relative inline-block">
-                                                    <iframe class="rounded-xl w-96 h-64" src="{{ $movie->getTrailerEmbedUrlAttribute()}}" frameborder="0" allowfullscreen></iframe>
+                                                    <iframe class="rounded-xl w-96 h-64" src="{{ $movie->getTrailerEmbedUrlAttribute() }}" frameborder="0" allowfullscreen></iframe>
                                                 </div>
                                             @endif
                                         </div>
-                                        <x-field.select
-                                            name="date"
-                                            :options="$screeningByDates"
-                                            label="Date"
-                                            :width="'md'"
-                                            href=""
-                                        />
-
-                                        <x-field.select
-                                            name="date"
-                                            :options="$screeningByDates"
-                                            label="Date"
-                                            :width="'md'"
-                                        />
-
-
-
-                                        @foreach($movie->screeningsDate($filterByDate) as $screening)
-                                            <div>
-                                                <a href="{{route('screenings.showcase',['screening'=>$screening])}}">
-                                                    {{$screening->date}} {{$screening->start_time}}
-                                                </a>
-                                            </div>
-                                        @endforeach
-
                                     </div>
                                 </div>
                             </div>
+                            <div class=" pt-64">
+                                <div>
+                                    <h3 class="text-lg font-semibold">Pick a date and time</h3>
+
+                                </div>
+                                <form id="form_selectDate" method="GET" action="{{ route('movies.showcase', $movie) }}" class="mt-6">
+                                    <x-field.select
+                                        name="date"
+                                        :options="['-' => 'Select Date'] + $screeningByDates"
+                                        label="Date"
+                                        :width="'md'"
+                                        onchange="document.getElementById('form_selectDate').submit();"
+                                        value="{{ request('date') }}"
+                                    />
+                                </form>
+                                <form id="form_selectTime" method="GET" action="{{ route('movies.screeningId', $movie) }}" class="mt-6">
+                                    <x-field.select
+                                        name="time"
+                                        :options="['-' => 'Select Time'] + $startTimes"
+                                        label="Time"
+                                        :width="'md'"
+                                        onchange="document.getElementById('form_selectTime').submit();"
+                                        value="{{ request('time') }}"
+                                    />
+                                    <input type="hidden" name="date" value="{{ $filterByDate }}" />
+                                </form>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

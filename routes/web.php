@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
             //Tickets
             Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
             Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
-            Route::resource('/purchases', PurchaseController::class);
 
             //Users Configs
             Route::resource('users',UserController::class);
@@ -54,6 +53,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/configuration', [ConfigurationController::class, 'edit'])->name('configuration.edit');
             Route::patch('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
         });
+
+
 
         Route::get('dashboard', function () {
             return view('dashboard.index');
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('movies', MovieController::class);
 Route::get('movies/{movie}/showcase', [MovieController::class, 'showcase'])->name('movies.showcase');
-
+Route::get('movies/{movie}/screeningId', [MovieController::class, 'screeningId'])->name('movies.screeningId');
 
 
 Route::get('screening/{screening}/showcase', [ScreeningController::class,'showcase'])->name('screenings.showcase');

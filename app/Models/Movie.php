@@ -50,20 +50,12 @@ class Movie extends Model
     }
 
 
-
-    public function getYouTubeVideoUrl()
-    {
-        return $this->trailer_url;
-    }
-
-
-
     public function getTrailerEmbedUrlAttribute()
     {
-        if (str_contains($this->getYouTubeVideoUrl(), 'watch?v=')) {
-            return str_replace('watch?v=', 'embed/', $this->getYouTubeVideoUrl());
+        if (str_contains($this->trailer_url, 'watch?v=')) {
+            return str_replace('watch?v=', 'embed/', $this->trailer_url);
         } else {
-            return $this->getYouTubeVideoUrl();
+            return $this->trailer_url;
         }
     }
 
