@@ -13,6 +13,7 @@ use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\ConfigurationController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -44,6 +45,14 @@ Route::middleware('auth')->group(function () {
             //Tickets
             Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
             Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
+            Route::resource('/purchases', PurchaseController::class);
+
+            //Users Configs
+            Route::resource('users',UserController::class);
+
+            //Configs
+            Route::get('/configuration', [ConfigurationController::class, 'edit'])->name('configuration.edit');
+            Route::patch('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
         });
 
         Route::get('dashboard', function () {

@@ -36,7 +36,7 @@
                                 </td>
                                 <td class="px-4 py-2 border border-gray-300 text-center">{{$item['screening']->theater->name}}</td>
                                 <td class="px-4 py-2 border border-gray-300 text-center">{{$item['seat']->row.$item['seat']->seat_number}}</td>
-                                <td class="px-4 py-2 border border-gray-300 text-center"> 9.00 $</td>
+                                <td class="px-4 py-2 border border-gray-300 text-center"> {{ $ticketPrice }} $</td>
                                 <td class="px-4 py-2 border border-gray-300 text-center">
                                     <x-table.icon-minus method="delete" action="{{ route('cart.remove', ['id' => $id]) }}" class="text-red-600 hover:text-red-800 cursor-pointer flex justify-center items-cente items-centerr"/>
                                 </td>

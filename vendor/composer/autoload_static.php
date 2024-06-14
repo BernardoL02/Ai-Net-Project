@@ -385,8 +385,8 @@ class ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -5852,7 +5852,6 @@ class ComposerStaticInitb2bd91585bcdeb97b13e76f9f4d4174f
         'Spatie\\FlareClient\\Http\\Response' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Http/Response.php',
         'Spatie\\FlareClient\\Report' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Report.php',
         'Spatie\\FlareClient\\Solutions\\ReportSolution' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Solutions/ReportSolution.php',
-        'Spatie\\FlareClient\\Support\\PhpStackFrameArgumentsFixer' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Support/PhpStackFrameArgumentsFixer.php',
         'Spatie\\FlareClient\\Time\\SystemTime' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Time/SystemTime.php',
         'Spatie\\FlareClient\\Time\\Time' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Time/Time.php',
         'Spatie\\FlareClient\\Truncation\\AbstractTruncationStrategy' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Truncation/AbstractTruncationStrategy.php',

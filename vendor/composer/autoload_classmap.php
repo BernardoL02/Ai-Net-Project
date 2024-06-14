@@ -5270,7 +5270,6 @@ return array(
     'Spatie\\FlareClient\\Http\\Response' => $vendorDir . '/spatie/flare-client-php/src/Http/Response.php',
     'Spatie\\FlareClient\\Report' => $vendorDir . '/spatie/flare-client-php/src/Report.php',
     'Spatie\\FlareClient\\Solutions\\ReportSolution' => $vendorDir . '/spatie/flare-client-php/src/Solutions/ReportSolution.php',
-    'Spatie\\FlareClient\\Support\\PhpStackFrameArgumentsFixer' => $vendorDir . '/spatie/flare-client-php/src/Support/PhpStackFrameArgumentsFixer.php',
     'Spatie\\FlareClient\\Time\\SystemTime' => $vendorDir . '/spatie/flare-client-php/src/Time/SystemTime.php',
     'Spatie\\FlareClient\\Time\\Time' => $vendorDir . '/spatie/flare-client-php/src/Time/Time.php',
     'Spatie\\FlareClient\\Truncation\\AbstractTruncationStrategy' => $vendorDir . '/spatie/flare-client-php/src/Truncation/AbstractTruncationStrategy.php',

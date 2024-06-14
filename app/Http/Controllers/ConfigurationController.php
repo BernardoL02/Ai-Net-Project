@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Configuration;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Models\Configuration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Redirect;
 
 class ConfigurationController extends Controller
 {
@@ -13,7 +15,10 @@ class ConfigurationController extends Controller
      */
     public function edit()
     {
-        $configuration= Configuration::first();
+        $ticketPrice = DB::table('configuration')->where('id', '1')->value('ticket_price');
+        $discount = DB::table('configuration')->where('id', '1')->value('registered_customer_ticket_discount');
+
+        return view('configuration.edit', compact('ticketPrice','discount'));
     }
 
     /**
@@ -21,7 +26,17 @@ class ConfigurationController extends Controller
      */
     public function update(Request $request)
     {
-        $configuration= Configuration::first();
-    }
+        $request->validate([
+            'ticket_price' => 'required|numeric|min:0',
+            'discount' => 'required|numeric|min:0',
+        ]);
 
+
+        $config = Configuration::findOrFail(1);
+        $config->ticket_price = $request->ticket_price;
+        $config->registered_customer_ticket_discount = $request->discount;
+        $config->save();
+
+        return back()->with('status', 'configuration-updated');
+    }
 }

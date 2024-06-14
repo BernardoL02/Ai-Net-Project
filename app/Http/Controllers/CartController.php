@@ -29,9 +29,10 @@ class CartController extends Controller
             $customer = Customer::where('id', Auth::user()->id)->first();
         }
 
+        $ticketPrice = DB::table('configuration')->where('id', '1')->value('ticket_price');
 
         $cart = session('cart', []);
-        return view('cart.show', compact('cart','user','customer'));
+        return view('cart.show', compact('cart','user','customer','ticketPrice'));
     }
 
     public function addToCart(Request $request, Screening $screening): RedirectResponse
@@ -137,35 +138,40 @@ class CartController extends Controller
 
             DB::beginTransaction();
 
-            // Crie a compra e obtenha o ID da compra criada
             $purchase = Purchase::create($purchaseData);
             $purchaseId = $purchase->id;
 
             // Processar cada item no carrinho
             foreach ($cart as $item) {
 
-                // Aqui você pode criar cada ticket associado à compra
                 $ticketData = [
                     'purchase_id' => $purchaseId,
-                    'screening_id' => $item['screening']->id, // ID da sessão de exibição
-                    'seat_id' => $item['seat']->id, // Assento reservado (e.g., D3)
-                    'price' => $ticketPrice, // Preço do ingresso
+                    'screening_id' => $item['screening']->id,
+                    'seat_id' => $item['seat']->id,
+                    'price' => $ticketPrice,
                     'customer_name' => $validatedData['name'],
                     'customer_email' => $validatedData['email'],
                     'customer_nif' => $validatedData['nif'],
                 ];
 
-                // Salve o ticket associado à compra
                 Ticket::create($ticketData);
 
-                // Atualize o preço total da compra com o preço deste ticket
                 $purchaseData['total_price'] += $ticketPrice;
             }
 
-            // Atualize a compra com o preço total calculado
-            $purchase->update(['total_price' => $purchaseData['total_price']]);
+            if (Auth::check()) {
+                $discount = DB::table('configuration')->where('id', '1')->value('registered_customer_ticket_discount');
 
-            // Simulação de pagamento (substitua com a lógica real de pagamento)
+                $num_tickets = count($cart);
+
+                $purchaseData['total_price'] -= $num_tickets * $discount;
+
+                $purchase->update(['total_price' => $purchaseData['total_price']]);
+            }
+            else{
+                $purchase->update(['total_price' => $purchaseData['total_price']]);
+            }
+
             switch ($validatedData['payment_type']) {
                 case 'VISA':
                     $paymentSuccessful = Payment::payWithVisa($validatedData['payment_ref'], substr($validatedData['payment_ref'], -3));
@@ -186,17 +192,15 @@ class CartController extends Controller
             }
 
             if ($paymentSuccessful) {
-                // Finalize a compra apenas se o pagamento for bem-sucedido
+
                 DB::commit();
 
-                // Limpe o carrinho da sessão após a conclusão bem-sucedida da compra
                 $request->session()->forget('cart');
 
                 return back()
                     ->with('alert-type', 'success')
                     ->with('alert-msg', 'Purchase successfully completed!');
             } else {
-                // Rollback da transação se o pagamento falhar
                 DB::rollback();
 
                 return back()
