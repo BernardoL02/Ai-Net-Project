@@ -29,6 +29,10 @@ class CustomerController extends Controller
             $query->where('nif', '=', $request->nif);
         }
 
+        if ($request->filled('state')) {
+            $query->where('blocked', '=', $request->state);
+        }
+
         $allCustomers = $query->paginate(10);
 
         return view('customers.index', compact('allCustomers'));

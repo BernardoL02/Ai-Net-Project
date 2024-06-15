@@ -22,7 +22,20 @@
 
                         <div>
                             <x-field.input label="NIF" name="nif" :width="'lg'" value="{{ request('nif') }}" />
-                            <x-button element="submit" text="Search" type="submit" class="mt-[2.15rem]"/>
+
+                            <div class="flex flex-row space-x-2">
+
+                                <x-field.select class="translate-y-2"
+                                name="state"
+                                :options="['' => ' - ', '0' => 'Unblocked', '1' => 'Blocked']"
+                                label="User State"
+                                value="{{ request('state') }}"
+                                :required="False"
+                                :width="'full'"
+                                />
+
+                                <x-button element="submit" text="Search" type="submit" class="mt-[2.15rem]"/>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -80,18 +80,18 @@
                             @method('PUT')
 
                             <div>
-                                <div>
+                                <div class="">
                                     <div class="space-y-6 mb-10">
                                         <x-field.input label="NIF" name="nif" :width="'lg'" value="{{ $user->customer?->nif }}" :readonly="$readonly" />
                                         <x-field.input label="Payment Type" name="payment_type" :width="'lg'" value="{{ $user->customer?->payment_type }}" :readonly="$readonly" />
 
-                                        <div class="grid">
-                                            <x-field.radiogroup
-                                            name="type"
-                                            label="Payment Type"
-                                            :readonly="$readonly"
-                                            value="{{ old('gender', $user->customer?->payment_type) }}"
-                                            :options="['MBWAY' => 'MBWAY', 'VISA' => 'VISA', 'PAYPAL' => 'PAYPAL']" />
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-1">
+                                                <x-field.radiogroup
+                                                name="type"
+                                                label="Payment Type"
+                                                :readonly="$readonly"
+                                                value="{{ old('gender', $user->customer?->payment_type) }}"
+                                                :options="['MBWAY' => 'MBWAY', 'PAYPAL' => 'PAYPAL', 'VISA' => 'VISA']" />
                                         </div>
                                     </div>
 
@@ -147,6 +147,5 @@
         </div>
     </div>
 </div>
-
-
 @endsection
+

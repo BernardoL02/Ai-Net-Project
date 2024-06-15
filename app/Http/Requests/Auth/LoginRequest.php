@@ -37,16 +37,22 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function authenticate()
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
+        }
+
+        $user = Auth::user();
+        if ($user->blocked) {
+            Auth::logout(); // Deslogar o usuário imediatamente se estiver bloqueado
+            return back()->with('alert-type', 'danger')->with('alert-msg', 'Your account has been blocked. Contact your administrator.');
         }
 
         RateLimiter::clear($this->throttleKey());
