@@ -108,6 +108,21 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
+    public function updatePhoto(Request $request, User $user)
+    {
+        $request->validate([
+            'photo_file' => 'sometimes|image|max:4096',
+        ]);
+
+        if ($request->hasFile('photo_file')) {
+            $path = $request->photo_file->store('public/photos');
+            $user->photo_filename = basename($path);
+            $user->save();
+        }
+
+        return back()->with('alert-type', 'success')->with('alert-msg', 'User photo updated successfully!');
+    }
+
     public function destroyPhoto(User $user): RedirectResponse
     {
         if ($user->photo_filename) {

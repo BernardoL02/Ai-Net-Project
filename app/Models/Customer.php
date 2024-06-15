@@ -12,7 +12,6 @@ class Customer extends Model
 {
     use HasFactory,SoftDeletes;
 
-
     public $incremented = false;
 
     protected $fillable =['id','nif', 'payment_type', 'payment_ref'];
@@ -25,6 +24,5 @@ class Customer extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class,'id','id')->withTrashed();
-
     }
 }

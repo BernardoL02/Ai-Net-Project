@@ -108,7 +108,7 @@ class CartController extends Controller
         $validatedData = $request->validated();
 
         if (Auth::check()) {
-            $customer = Customer::where('id', Auth::user()->id)->first();
+            $customerID = $request->user()->id;
         }
 
         // Verifique se há itens no carrinho antes de prosseguir
@@ -124,7 +124,7 @@ class CartController extends Controller
             'date' => now(), // Data da compra
             'total_price' => 0, // Inicialize o preço total como zero e calcule-o conforme adiciona os tickets
             'nif' => $validatedData['nif'] ?? null, // NIF (opcional)
-            'customer_id' => $customer->id ?? null,
+            'customer_id' => $customerID ?? null,
             'customer_email' => $validatedData['email'],
             'customer_name' => $validatedData['name'],
             'payment_type' => $validatedData['payment_type'],

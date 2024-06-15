@@ -62,7 +62,7 @@
                             focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                         >Choose File</label>
                         <label id="id_{{ $name }}_selected_file"
-                            class="text-xs pl-4 text-gray-500 truncate max-w-32"></label>
+                            class="text-xs pl-4 text-gray-500 truncate max-w-28"></label>
                 </div>
                 @error( $name )
                     <div class="text-sm text-red-500">

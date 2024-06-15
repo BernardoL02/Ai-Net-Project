@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::delete('profile/{user}/photo', [ProfileController::class, 'destroyPhoto']) ->name('profile.photo.destroy');
+    Route::put('/profile/photo/{user}', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+
 
     //Adicionar aqui as rotas que só podem ser acedidas pelo ADMIN
     Route::middleware('can:type')->group(function () {
@@ -48,6 +50,8 @@ Route::middleware('auth')->group(function () {
 
             //Users Configs
             Route::resource('users',UserController::class);
+            Route::resource('customers',CustomerController::class);
+            Route::put('customers/{customer}/block', [CustomerController::class, 'block'])->name('customers.block');
 
             //Configs
             Route::get('/configuration', [ConfigurationController::class, 'edit'])->name('configuration.edit');

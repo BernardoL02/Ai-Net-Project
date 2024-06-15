@@ -62,14 +62,10 @@
                     @can('viewAny', App\Models\Purchase::class)
                         @php
                             $options = [];
-                            $options['All Users'] = route('users.index');
+                            $options['Admin/Employees'] = route('users.index');
+                            $options['Customer'] = route('customers.index');
+                            $options['Add User'] = route('users.create');
                         @endphp
-
-                        @can('create', App\Models\Genre::class)
-                            @php
-                                $options['Add User'] = route('users.create');
-                            @endphp
-                        @endcan
 
                         <x-menus.admin-group-menu-items title="User's management" :options="$options">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

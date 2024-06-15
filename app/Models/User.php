@@ -50,9 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function customer():HasOne
+    public function customer()
     {
-        return $this->hasOne(Customer::class)->withTrashed();
+        return $this->hasOne(Customer::class, 'id', 'id');
     }
 
     public function getPhotoFullUrlAttribute()

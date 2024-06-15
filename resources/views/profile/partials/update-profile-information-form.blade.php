@@ -90,7 +90,7 @@
     </div>
 
     <div>
-        <x-field.image class="pt-2"
+        <x-field.image class="pt-14"
             name="photo_file"
             label="Photo"
             width="md"
@@ -108,9 +108,3 @@
     @csrf
     @method('DELETE')
 </form>
-
-
-
-<!-- claudia.collier@mail.pt com valor -->
-<!-- c4@mail.pt sem valor -->
-<!-- e1@mail.pt--->
