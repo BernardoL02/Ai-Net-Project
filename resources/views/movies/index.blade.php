@@ -20,7 +20,6 @@
                         :width="'md'"
                         value="{{ request('genre') }}"
                     />
-
                     <x-field.select
                         name="date"
                         :options="$screeningByDates"

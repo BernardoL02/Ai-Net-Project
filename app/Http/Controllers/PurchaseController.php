@@ -116,15 +116,23 @@ class PurchaseController extends Controller
             return $ticket->screening->date >= $testingDate;
         }); */
 
+        $testingDate = '2024-06-01';
 
-        $testingDate = '2024-06-01';//alter to current day after we inserted atleast a few tickets
-
-        $invalidTickets = $purchase->tickets->filter(function($ticket) use ($testingDate) {
+        $invalidTickets = $purchase->tickets->filter(function ($ticket) use ($testingDate) {
             return $ticket->screening->date < $testingDate;
         });
 
-        return view('purchases.show')
-            ->with('purchase', $purchase)->with('invalidTickets',$invalidTickets);
+        // Buscar o photo_filename corretamente usando o relacionamento ajustado
+        $photoFilename = null;
+        if ($purchase->customer && $purchase->customer->user) {
+            $photoFilename = $purchase->customer->user;
+        }
+
+        return view('purchases.show', [
+            'purchase' => $purchase,
+            'invalidTickets' => $invalidTickets,
+            'photoFilename' => $photoFilename,
+        ]);
 
     }
 

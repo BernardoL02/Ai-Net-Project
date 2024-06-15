@@ -46,7 +46,7 @@ class TheaterController extends \Illuminate\Routing\Controller
     {
         $NewTheater = Theater::create($request->validated());
         if ($request->hasFile('photo_file')) {
-            $path = $request->photo_file->store('public/theater');
+            $path = $request->photo_file->store('public/theater/');
             $NewTheater->photo_url = basename($path);
             $NewTheater->save();
         }

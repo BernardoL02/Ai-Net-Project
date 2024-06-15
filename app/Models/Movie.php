@@ -14,7 +14,7 @@ class Movie extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable =['title', 'genre_code', 'year', 'poster_filename', 'synopsis'];
+    protected $fillable =['title', 'genre_code', 'year', 'poster_filename','trailer_url', 'synopsis'];
 
 
     public function genre():BelongsTo

@@ -14,14 +14,30 @@
         <x-field.input name="reference" label="Payment Reference" :readonly="$readonly"
             value="{{ old('name', $purchase->payment_ref) }}" />
 
-
-
-        <div class="flex space-x-4">
+    </div>
+    <div class="flex space-x-4">
             <x-field.input name="date" type="date" label="Date" :readonly="$readonly"
                 value="{{ old('email', $purchase->date) }}" />
             <x-field.input name="price" label="Total price" :readonly="$readonly"
                 value="{{ old('extension', $purchase->total_price) }}" />
 
-        </div>
     </div>
+    @php
+        $defaultPosterUrl = asset('img/default_user.png');
+        $posterUrl = $photoFilename?->photo_filename ? asset('storage/photos/' . $photoFilename?->photo_filename) : $defaultPosterUrl;
+    @endphp
+
+    <x-field.image class="-translate-y-6"
+        name="photo_file"
+        label="Photo"
+        width="md"
+        deleteTitle="Delete Photo"
+        deleteAllow="true"
+        submitForm="form_to_update_photo"
+        deleteForm="form_to_delete_photo"
+        :imageUrl="$posterUrl"
+        :readonly="$readonly"
+    />
 </div>
+
+

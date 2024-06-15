@@ -76,7 +76,7 @@
                                         <td style="width: 220px;">
                                             <div class="flex items-center">
                                                 <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt=""
-                                                    style="width: 50px; height: 65px;">
+                                                    style="width: 50px; height: 65px; margin-top:10px">
                                                 {{ $ticket->screening->movie->title }}
                                             </div>
                                         </td>
@@ -87,7 +87,7 @@
                                         <td>
                                             {{ $ticket->seat->row }}{{ $ticket->seat->seat_number }} </td>
 
-                                        <td>{{ $ticket->price }} €</td>
+                                        <td>{{ $ticket->price }} $</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -135,7 +135,7 @@
                                         <td>
                                             {{ $ticket->seat->row }}{{ $ticket->seat->seat_number }} </td>
 
-                                        <td>{{ $ticket->price }} €</td>
+                                        <td>{{ $ticket->price }} $</td>
 
                                         {{-- <td>{{ $ticket->qrcode_url }} </td>
                                         Ver os QRcodes, agora estao todos a zero, talvez seja possivel gerar um
@@ -153,10 +153,6 @@
                             <thead>
                                 <tr>
                                     <th>Ticket No</th>
-                                    {{--   <th class="px-2 py-2 text-left">Theater Name</th> --}}
-                                    {{-- @if ($showDepartment)
-                                                     <th class="px-2 py-2 text-left hidden lg:table-cell">Department</th>
-                                                 @endif --}}
                                     <th>Theater Name</th>
                                     <th>Movie</th>
                                     <th>Date and time</th>
@@ -192,7 +188,7 @@
                                         <td>
                                             {{ $ticket->seat->row }}{{ $ticket->seat->seat_number }} </td>
 
-                                        <td>{{ $ticket->price }} €</td>
+                                        <td>{{ $ticket->price }} $</td>
 
                                         {{-- <td>{{ $ticket->qrcode_url }} </td>
                                     Ver os QRcodes, agora estao todos a zero, talvez seja possivel gerar um

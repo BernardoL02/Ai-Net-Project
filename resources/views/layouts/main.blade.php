@@ -78,10 +78,14 @@
                                     </x-slot>
 
                                     <hr>
-                                        <x-menus.submenu-item
-                                        content="Profile"
-                                        selectable="0"
-                                        href="{{ route('profile.edit') }}"/>
+                                        @if(Auth::user()?->type == 'A' || Auth::user()?->type == 'C')
+
+                                            <x-menus.submenu-item
+                                            content="Profile"
+                                            selectable="0"
+                                            href="{{ route('profile.edit') }}"/>
+                                        @endif
+
                                         <x-menus.submenu-item
                                         content="Change Password"
                                         selectable="0"

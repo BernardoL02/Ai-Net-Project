@@ -16,9 +16,9 @@ class Customer extends Model
 
     protected $fillable =['id','nif', 'payment_type', 'payment_ref'];
 
-    public function purchases():HasMany
+    public function purchases()
     {
-       return  $this->hasMany(Purchase::class());
+        return $this->hasMany(Purchase::class, 'customer_id', 'id');
     }
 
     public function user():BelongsTo

@@ -1,21 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Carbon;
 use App\Models\Genre;
 use App\Models\Movie;
-use App\Models\Screening;
 use App\Models\Theater;
+use App\Models\Screening;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request): View
     {
         $date = date("Y-m-d");
@@ -61,59 +60,59 @@ class MovieController extends Controller
         return view('movies.index', compact('moviesByScreening', 'genres', 'selectedGenre', 'arrayGenresCode', 'screeningByDates', 'filterByDate'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $movie = new Movie();
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
-
-        return view('movies.create', compact('movie', 'genres'));
+        $genres = Genre::all();
+        $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
+        return view('movies.create', compact('movie', 'genres','arrayGenresCode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'synopsis' => 'required|string',
             'genre_code' => 'required',
-            'year' => 'required|integer', // Adicione validação para o campo year
-            'photo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // Adicione outras regras de validação conforme necessário para outros campos
+            'year' => 'required|integer',
+            'poster_filename' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'trailer_url' => 'nullable|url|max:255',
+            'synopsis' => 'required|string',
         ]);
+
+
 
         $newMovie = Movie::create($validatedData);
 
-        if ($request->hasFile('photo_file')) {
-            $path = $request->photo_file->store('public/posters');
+        if ($request->hasFile('poster_filename')) {
+            $path = $request->file('poster_filename')->store('public/posters/');
             $newMovie->poster_filename = basename($path);
             $newMovie->save();
         }
 
         $url = route('movies.show', ['movie' => $newMovie]);
         $htmlMessage = "Movie <a href='$url'><u>{$newMovie->title}</u></a> ({$newMovie->id}) has been created successfully!";
-        return redirect()->route('movies.index')
+        return redirect()->route('movies.showMovies')
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);
     }
 
-
-
     public function show(Movie $movie)
     {
+        $genres = Genre::all();
+        $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
-        return view('movies.show', compact('movie', 'genres'));
+        return view('movies.show', compact('movie', 'genres','arrayGenresCode'));
     }
 
     public function showMovies(Request $request): View
     {
+        $genres = Genre::all();
+        $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
+        $arrayGenresCode = array(' ' => 'All Genres') + $arrayGenresCode;
         $movies = Movie::paginate(10);
-        return view('movies.showMovies',compact('movies'));
+        return view('movies.showMovies',compact('movies','arrayGenresCode'));
     }
 
 
@@ -150,8 +149,6 @@ class MovieController extends Controller
         return view('movies.showcase', compact('movie', 'genres', 'screeningByDates', 'filterByDate', 'startTimes'));
     }
 
-
-
     public function screeningId(Movie $movie, Request $request)
     {
 
@@ -170,22 +167,19 @@ class MovieController extends Controller
         }
     }
 
-
     public function edit(Movie $movie)
     {
+        $genres = Genre::all();
+        $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
+        $arrayGenresCode = array(' ' => 'All Genres') + $arrayGenresCode;
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
-        return view('movies.edit', compact('movie', 'genres'));
+        return view('movies.edit', compact('movie', 'genres','arrayGenresCode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Movie $movie)
     {
-        $movie->update($request->validated());
-
+        $movie->update();
         if ($request->hasFile('photo_file')) {
-            // Delete previous file (if any)
             if (
                 $movie->poster_filename &&
                 Storage::fileExists('public/posters/' . $movie->poster_filename)
@@ -200,14 +194,11 @@ class MovieController extends Controller
 
         $url = route('movies.show', ['movie' => $movie]);
         $htmlMessage = "Movie <a href='$url'><u>{$movie->title}</u></a> ({$movie->id}) has been updated successfully!";
-        return redirect()->route('movies.index')
+        return redirect()->route('movies.showMovies')
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Movie $movie)
     {
         try {
@@ -237,7 +228,7 @@ class MovieController extends Controller
 
 
 
-        return redirect()->route('movies.index')
+        return redirect()->route('movies.showMovies')
             ->with('alert-type', $alertType)
             ->with('alert-msg', $alertMsg);
     }
@@ -256,7 +247,4 @@ class MovieController extends Controller
         }
         return redirect()->back();
     }
-
-
-
 }

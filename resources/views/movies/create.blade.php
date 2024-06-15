@@ -15,16 +15,14 @@
                         Click on "Save" button to store the information.
                     </p>
                 </header>
-
-                <form method="POST" action="{{ route('movies.store') }}"
-                    enctype="multipart/form-data">
+                <form method="POST" action="{{ route('movies.store') }}" enctype="multipart/form-data">
                     @csrf
                     @php
                         $genre = new \App\Models\Genre;
                     @endphp
                     @include('movies.shared.fields', ['mode' => 'create', 'genre' => $genre])
                     <div class="flex mt-6">
-                        <x-button element="submit" type="dark" text="Save new movie" class="uppercase"/>
+                    <x-button element="submit" type="dark" text="Save new movie" class="uppercase"/>
                     </div>
                 </form>
             </section>

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Theater extends Model
 {
     use HasFactory, SoftDeletes;
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable=['name','photo_filename'];
 
 

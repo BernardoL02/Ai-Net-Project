@@ -44,7 +44,7 @@
                     <p><span class="label">Payment reference:</span> {{ $purchase->payment_ref }}</p>
                     <p><span class="label">Nif:</span> {{ $purchase->nif ?? 'Not Available' }}</p>
                     <p><span class="label">Date:</span> {{ $purchase->date }}</p>
-                    <p><span class="label">Total price:</span> {{ $purchase->total_price }} €</p>
+                    <p><span class="label">Total price:</span> {{ $purchase->total_price }} $</p>
 
                     <h2>Tickets</h2>
                     <table>
@@ -70,7 +70,7 @@
                                     </td>
                                     <td style="width: 220px;">
                                         <div class="flex items-center">
-                                            <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt="" style="width: 50px; height: 65px;" >
+                                            <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt="" style="width: 50px; height: 65px; margin-top:10px" >
                                             {{ $ticket->screening->movie->title }}
                                         </div>
                                     </td>
@@ -80,8 +80,7 @@
                                     </td>
                                     <td>
                                         {{ $ticket->seat->row }}{{ $ticket->seat->seat_number }} </td>
-
-                                    <td>{{ $ticket->price }} €</td>
+                                    <td>{{ $ticket->price }} $</td>
                                 </tr>
                             @endforeach
                         </tbody>
