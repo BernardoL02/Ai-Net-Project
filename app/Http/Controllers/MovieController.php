@@ -78,14 +78,22 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $newMovie = Movie::create($request->validated());
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'synopsis' => 'required|string',
+            'genre_code' => 'required',
+            'year' => 'required|integer', // Adicione validação para o campo year
+            'photo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // Adicione outras regras de validação conforme necessário para outros campos
+        ]);
+
+        $newMovie = Movie::create($validatedData);
 
         if ($request->hasFile('photo_file')) {
             $path = $request->photo_file->store('public/posters');
             $newMovie->poster_filename = basename($path);
             $newMovie->save();
         }
-
 
         $url = route('movies.show', ['movie' => $newMovie]);
         $htmlMessage = "Movie <a href='$url'><u>{$newMovie->title}</u></a> ({$newMovie->id}) has been created successfully!";
@@ -94,14 +102,20 @@ class MovieController extends Controller
             ->with('alert-msg', $htmlMessage);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
     public function show(Movie $movie)
     {
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
         return view('movies.show', compact('movie', 'genres'));
     }
+
+    public function showMovies(Request $request): View
+    {
+        $movies = Movie::paginate(10);
+        return view('movies.showMovies',compact('movies'));
+    }
+
 
     public function showcase(Movie $movie, Request $request)
     {
@@ -109,10 +123,9 @@ class MovieController extends Controller
         $endDate = date("Y-m-d", strtotime("+2 weeks"));
         $filterByDate = $request->date ?? '-';
         $filterByTime = $request->time ?? null;
-        $theaterId = $request->theater_id ?? null;
 
         $screeningQuery = Screening::whereBetween('date', [$date, $endDate])
-                                   ->where('movie_id', $movie->id);
+                                ->where('movie_id', $movie->id);
 
         if ($filterByDate !== '-') {
             $screeningQuery->where('date', $filterByDate);
@@ -123,7 +136,10 @@ class MovieController extends Controller
         }
 
         $screenings = $screeningQuery->get();
-        $startTimes = $screenings->unique('start_time')->pluck('start_time')->toArray();
+
+        $startTimes = $filterByDate !== '-' ?
+            $screenings->unique('start_time')->pluck('start_time', 'start_time')->toArray() :
+            [];
 
         $screeningByDates = $screenings->pluck('date')->unique()->toArray();
         $screeningByDates = array_combine($screeningByDates, $screeningByDates);
@@ -134,24 +150,27 @@ class MovieController extends Controller
         return view('movies.showcase', compact('movie', 'genres', 'screeningByDates', 'filterByDate', 'startTimes'));
     }
 
+
+
     public function screeningId(Movie $movie, Request $request)
     {
-        $screening = Screening::where('movie_id', $movie->id)
-                              ->where('date', $request->date)
-                              ->first();
 
-        if ($screening) {
-            return redirect()->route('screenings.showcase', ['screening' => $screening->id]);
+
+        $screening = Screening::where('movie_id', $movie->id)
+                            ->where('date', $request->date)
+                            ->where('start_time', $request->time)
+                            ->pluck('id');
+
+        if ($screening->isNotEmpty()) {
+            return redirect()->route('screenings.showcase', ['screening' => $screening->first()]);
         } else {
             return redirect()->route('movies.showcase', $movie)
-                             ->withErrors(['error' => 'Screening not found'])
-                             ->withInput();
+                            ->withErrors(['error' => 'Screening not found'])
+                            ->withInput();
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Movie $movie)
     {
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();

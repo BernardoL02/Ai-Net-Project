@@ -266,7 +266,7 @@
                     @can('viewAny', App\Models\Movie::class)
                         @php
                             $options = [];
-                            $options['All Movies'] = route('movies.index');
+                            $options['All Movies'] = route('movies.showMovies');
                         @endphp
 
                         @can('create', App\Models\Movie::class)

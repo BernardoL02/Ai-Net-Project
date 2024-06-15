@@ -39,7 +39,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('/purchases', PurchaseController::class);
 
             //Create a receipt
-
             Route::get('/receipt/{purchase}', [PDFController::class, 'generateReceipt'])->name('receipt.generatePDF');
             Route::get('/purchases/{purchase}/receipt', [PDFController::class, 'showReceipt'])->name('receipt.show');
             Route::get('/purchases/{purchase}/receipt/download', [PDFController::class, 'downloadReceipt'])->name('receipt.download');
@@ -47,6 +46,11 @@ Route::middleware('auth')->group(function () {
             //Tickets
             Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
             Route::get('/purchases/{purchase}/tickets', [PurchaseController::class, 'showTickets'])->name('tickets.show');
+
+            //All movies
+            Route::get('/movies', [MovieController::class, 'showMovies'])->name('movies.showMovies');
+            Route::delete('movie/{movie}/photo', [TheaterController::class, 'destroyPhoto'])->name('movie.photo.destroy')->can('update', 'movie');
+
 
             //Users Configs
             Route::resource('users',UserController::class);

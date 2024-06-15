@@ -51,23 +51,33 @@
                                         value="{{ request('date') }}"
                                     />
                                 </form>
+
                                 <form id="form_selectTime" method="GET" action="{{ route('movies.screeningId', $movie) }}" class="mt-6">
+                                    <input type="hidden" name="date" id="hidden_date" value="{{ request('date') }}">
                                     <x-field.select
                                         name="time"
                                         :options="['-' => 'Select Time'] + $startTimes"
                                         label="Time"
                                         :width="'md'"
-                                        onchange="document.getElementById('form_selectTime').submit();"
+                                        onchange="submitTimeForm();"
                                         value="{{ request('time') }}"
                                     />
-                                    <input type="hidden" name="date" value="{{ $filterByDate }}" />
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </main>
 @endsection
+
+<script>
+    function submitTimeForm() {
+        // Copia a data selecionada do formulário de seleção de data para o campo oculto no formulário de seleção de horário
+        var selectedDate = document.querySelector('#form_selectDate select[name="date"]').value;
+        document.getElementById('hidden_date').value = selectedDate;
+        // Submete o formulário de seleção de horário
+        document.getElementById('form_selectTime').submit();
+    }
+</script>

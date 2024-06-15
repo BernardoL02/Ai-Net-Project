@@ -20,7 +20,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     @php
-                        $genre = new \App\Models\Genre; // Assuming you have a Genre model, create an empty instance
+                        $genre = new \App\Models\Genre;
                     @endphp
                     @include('movies.shared.fields', ['mode' => 'create', 'genre' => $genre])
                     <div class="flex mt-6">
