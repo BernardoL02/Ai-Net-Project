@@ -18,17 +18,20 @@
                     <x-field.select name="priceOption" label="Option"
                         value="{{ $priceOption }}"
                         :options="$listOptionPrice"/>
+                    <x-field.input name="date" label="Date " class="grow"
+                    value="{{ $date }}"/>
                 </div>
 
             </div>
-            <div class="grow-0 flex flex-col space-y-3 justify-start">
-                <div class="pt-6">
+            </div>
+
+            <div class="grow-0 flex flex-row space-x-3 justify-start pt-6">
+                <div>
                     <x-button element="submit" type="dark" text="Filter"/>
                 </div>
                 <div>
-                    <x-button element="a" type="light" text="Cancel" :href="$resetUrl"/>
+                    <x-button element="a" type="light" text="All Purchases" :href="$resetUrl"/>
                 </div>
-            </div>
         </div>
     </form>
 </div>

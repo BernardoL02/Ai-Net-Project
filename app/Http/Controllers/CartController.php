@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Seat;
 use App\Models\Ticket;
 use App\Models\Student;
@@ -37,6 +38,10 @@ class CartController extends Controller
 
     public function addToCart(Request $request, Screening $screening): RedirectResponse
     {
+        if(Carbon::now()->toDateString() >= $screening->date && Carbon::now()->toTimeString() > Carbon::parse($screening->start_time)->addMinutes(5)->toTimeString()){
+            return back()->with('alert-type', 'warning')->with('alert-msg', 'Impossible to add tickets. The session has already started!');
+        }
+
         $cart = session('cart', []);
 
         $seats = $request->seats ?? [];

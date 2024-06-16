@@ -24,6 +24,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
+        $request->session()->forget('cart');
+
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -36,6 +39,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $request->session()->forget('cart');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

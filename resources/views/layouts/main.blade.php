@@ -42,6 +42,13 @@
                             selected="{{Route::currentRouteName()=='movies.index'}}"
                         />
 
+                        <x-menus.menu-item
+                            content="My purchases"
+                            selectable="1"
+                            href="{{ route('customer.my-purchases') }}"
+                            selected="{{ Route::currentRouteName() == 'customer.my-purchases' ||  Route::currentRouteName() == 'purchases.showTicketsOfCostumer'}}"
+                        />
+
                         @if(Auth::user()?->type == 'A' || Auth::user()?->type == 'E')
 
                             <x-menus.menu-item

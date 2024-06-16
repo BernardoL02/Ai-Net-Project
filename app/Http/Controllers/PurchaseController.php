@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use PDF;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use PDF;
+use Illuminate\Support\Facades\Validator;
 
 
 class PurchaseController extends Controller
@@ -42,6 +43,12 @@ class PurchaseController extends Controller
         return $pdf->stream();
     }
 
+    public function showTicketsOfCostumer(Purchase $purchase)
+    {
+        $tickets = $purchase->tickets()->get();
+
+        return view('purchases.show-tickets', compact('purchase', 'tickets'));
+    }
 
     public function downloadTickets(Purchase $purchase){
 
@@ -50,12 +57,21 @@ class PurchaseController extends Controller
         $pdf = PDF::loadView('tickets',$data);
 
         return $pdf->download('ticket.pdf');
-
     }
-
 
     public function index(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'type' => 'nullable|string|in:MBWAY,PAYPAL,VISA', // Assume que estes são os tipos de pagamento válidos
+            'price' => 'nullable|numeric|min:0',
+            'priceOption' => 'nullable|integer|in:0,1',
+            'email' => 'nullable|email',
+            'date' => 'nullable|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $filterByPaymentType = $request->query('type');
         $filterByPrice = $request->input('price');
@@ -64,6 +80,10 @@ class PurchaseController extends Controller
 
         if ($filterByPaymentType !== null) {
             $purchasesQuery->where('payment_type', $filterByPaymentType);
+        }
+
+        if($request->filled('date')){
+            $purchasesQuery->where('date', $request->date)->pluck('date');
         }
 
         //Verificar se a query está correta
@@ -80,16 +100,16 @@ class PurchaseController extends Controller
                 $purchasesQuery->where('total_price','<=', $filterByPrice);
 
             }
-
         }
 
-        $purchases = $purchasesQuery->orderby('customer_name')->paginate(20)->withQueryString();                                /* ->orderby('total_price') */
+        $purchases = $purchasesQuery->orderby('customer_name')->paginate(20)->withQueryString();
+
         return view(
             'purchases.index',
             compact('purchases','filterByPaymentType','filterByPrice','filterByPriceOption')
         );
-
     }
+
 
     /**
      * Show the form for creating a new resource.

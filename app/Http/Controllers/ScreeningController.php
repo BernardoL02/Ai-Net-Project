@@ -65,8 +65,20 @@ class ScreeningController extends Controller
 
     public function showCase(Request $request, Screening $screening)
     {
+        $screening = Screening::find($screening->id);
+        $screeningsFull = false;
 
-        return view('screenings.showcase', compact('screening'));
+        if ($screening) {
+
+            $max_seats = $screening->theater->seats->count();
+            $occupiedSeats = (int)$screening->tickets()->count();
+
+            if($max_seats == $occupiedSeats){
+                $screeningsFull = true;
+            }
+        }
+
+        return view('screenings.showcase', compact('screening','screeningsFull'));
     }
 
 }
