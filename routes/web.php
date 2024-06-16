@@ -51,6 +51,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/movies', [MovieController::class, 'showMovies'])->name('movies.showMovies');
             Route::delete('movie/{movie}/photo', [TheaterController::class, 'destroyPhoto'])->name('movie.photo.destroy')->can('update', 'movie');
 
+            //All screenings
+            Route::resource('screenings', ScreeningController::class);
+
             //Users Configs
             Route::resource('users',UserController::class);
             Route::resource('customers',CustomerController::class);

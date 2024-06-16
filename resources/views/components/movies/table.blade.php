@@ -1,5 +1,5 @@
 
-<table class="table-auto border-collapse w-full">
+<table class="table-auto  border-2 border-gray-600 w-full ">
     <thead>
         <tr class="border-b-2 border-b-gray-400 dark:border-b-gray-500 bg-gray-100 dark:bg-gray-800">
             <th class="px-2 py-2 text-left">Photo</th>

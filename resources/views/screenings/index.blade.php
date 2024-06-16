@@ -1,51 +1,44 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
-@section('header-title', 'Introduction')
+@section('header-title', 'List of Movies')
 
 @section('main')
-<main>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="my-4 p-6 bg-white dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
-            <h1 class="pb-3 text-4xl font-semibold text-gray-800 dark:text-gray-200 leading-tight">
-                Filmes Disponíveis
-            </h1>
-            <div>
-                <form  action="{{ route('movies.index') }}" method="GET" class="lg:flex space-x-0 lg:space-x-4  grid grid-col-1 sm:grid-cols-2">
-                    <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title')}}"  class="sm:w-64" />
-                    <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" class="sm:w-64"/>
-                    <x-field.select
-                        name="genre"
-                        :options="$arrayGenresCode"
-                        label="Genre"
-                        :width="'md'"
-                    />
+<div class="flex justify-center">
+    <div class="my-4 p-6 grow bg-white dark:bg-gray-900 overflow-hidden
+                shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
 
-                    <x-field.select
-                        name="date"
-                        :options="$screeningByDates"
-                        label="Date"
-                        :width="'md'"
-                    />
-                    <x-button element="submit" text="Search" type="primary" class="mt-7 pb-4"/>
-                </form>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($moviesByScreening as $movie)
+        <form action="{{ route('screenings.index') }}" method="GET" class="pb-6 flex space-x-4">
+            <x-field.input label="Movie ID" name="movie_id" :width="'sm'" value="{{ request('movie_id') }}" />
+            <x-field.select
+                name="date"
+                :options="$screeningByDates"
+                label="Date"
+                :width="'md'"
+                value="{{ request('date', '-') }}"
+            />
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:rotate-2 hover:scale-105">
-                        <img src="{{ $movie->poster_full_url }}" alt="{{ $movie->title }}">
-                        <div class="pb-0 p-2">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $movie?->title }}</h4>
-                            <p class="text-gray-600 dark:text-gray-400">{{ $movie->genre?->name }}</p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            <x-button element="submit" text="Search" type="dark" class="mt-7"/>
+        </form>
+        @if (Session::has('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative " role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline">{{ Session::get('error') }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path fill-rule="evenodd" d="M14.35 5.65a.5.5 0 0 1 0 .7L10.71 10l3.64 3.65a.5.5 0 0 1-.7.7L10 10.71l-3.65 3.64a.5.5 0 0 1-.7-.7L9.29 10 5.65 6.35a.5.5 0 0 1 .7-.7L10 9.29l3.65-3.64a.5.5 0 0 1 .7 0z"/>
+                </svg>
+            </span>
         </div>
-
-        @can('viewAny', App\Models\Movie::class)
-            <x-button  href="{{route('theaters.index')}}" text="Edit Movies" type="primary" class="mt-7 pb-4"/>
-        @endcan
+        @endif
+        <div class="font-base text-sm text-gray-700 dark:text-gray-300 pt-2">
+            <x-screenings.table
+                :screenings="$screenings"
+            />
+        </div>
+        <div class="mt-4">
+            {{ $screenings->links() }}
+        </div>
     </div>
-</main>
+</div>
 @endsection
