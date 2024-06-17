@@ -36,7 +36,7 @@
                         Theater "{{ $theater->name }}"
                     </h2>
                 </header>
-                @include('theaters.shared.fields', ['mode' => 'show'])
+                @include('theaters.shared.fields', ['mode' => 'show', 'theater' => $theater])
             </section>
         </div>
     </div>

@@ -14,8 +14,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\ConfigurationController;
-use App\Http\Controllers\EmployeeAccessController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\EmployeeAccessController;
 
 
 //WITH THIS
@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('profile/{user}/photo', [ProfileController::class, 'destroyPhoto']) ->name('profile.photo.destroy');
     Route::put('/profile/photo/{user}', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 
+    Route::get('/my-purchases', [CustomerController::class, 'myPurchases'])->name('customer.my-purchases');
+    Route::get('/my-purchases/{purchase}/tickets', [PurchaseController::class, 'showTicketsOfCostumer'])->name('purchases.showTicketsOfCostumer');
+    Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
+
 
     //Adicionar aqui as rotas que só podem ser acedidas pelo ADMIN
     Route::middleware('can:type')->group(function () {
@@ -40,7 +44,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('/purchases', PurchaseController::class);
 
             //Create a receipt
-
             Route::get('/receipt/{purchase}', [PDFController::class, 'generateReceipt'])->name('receipt.generatePDF');
             Route::get('/purchases/{purchase}/receipt', [PDFController::class, 'showReceipt'])->name('receipt.show');
             Route::get('/purchases/{purchase}/receipt/download', [PDFController::class, 'downloadReceipt'])->name('receipt.download');
@@ -54,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
             //All screenings
             Route::resource('screenings', ScreeningController::class);
+            Route::post('/screenings/storeMultiple', [ScreeningController::class, 'storeMultiple'])->name('screenings.storeMultiple');
 
             //Users Configs
             Route::resource('users',UserController::class);
@@ -76,17 +80,14 @@ Route::middleware('auth')->group(function () {
             return view('dashboard.index');
         })->name('dashboard');
 
+
+
     });
 });
-
-Route::get('/my-purchases', [CustomerController::class, 'myPurchases'])->name('customer.my-purchases');
-Route::get('/my-purchases/{purchase}/tickets', [PurchaseController::class, 'showTicketsOfCostumer'])->name('purchases.showTicketsOfCostumer');
-Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
 
 Route::resource('movies', MovieController::class);
 Route::get('movies/{movie}/showcase', [MovieController::class, 'showcase'])->name('movies.showcase');
 Route::get('movies/{movie}/screeningId', [MovieController::class, 'screeningId'])->name('movies.screeningId');
-
 
 Route::get('screening/{screening}/showcase', [ScreeningController::class,'showcase'])->name('screenings.showcase');
 

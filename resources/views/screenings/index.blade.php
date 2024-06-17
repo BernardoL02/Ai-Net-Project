@@ -9,6 +9,7 @@
 
         <form action="{{ route('screenings.index') }}" method="GET" class="pb-6 flex space-x-4">
             <x-field.input label="Movie ID" name="movie_id" :width="'sm'" value="{{ request('movie_id') }}" />
+            <x-field.input label="Title" name="title" :width="'md'" value="{{ request('title') }}" />
             <x-field.select
                 name="date"
                 :options="$screeningByDates"
@@ -37,7 +38,7 @@
             />
         </div>
         <div class="mt-4">
-            {{ $screenings->links() }}
+            {{ $screenings->appends(request()->query())->links() }}
         </div>
     </div>
 </div>
