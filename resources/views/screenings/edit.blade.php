@@ -25,14 +25,10 @@
                 <input type="time" id="start_time" name="start_time" value="{{ $screening->start_time }}" class="w-full px-4 py-2 border rounded" required>
 
             </div>
-
-
             <div class="grid grid-cols-2 gap-1">
                 <x-button element="submit" type="dark" text="Save" class="uppercase" />
                 <x-button element="a" type="primary" text="Cancel" class="uppercase" href="{{ url()->full() }}" />
             </div>
-
-
         </form>
     </div>
 @endsection

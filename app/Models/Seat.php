@@ -11,19 +11,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Seat extends Model
 {
     use HasFactory, SoftDeletes;
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['theater_id', 'row','seat_number'];
 
 
     public function tickets():HasMany
     {
-        return $this->hasMany(Ticket::class());
+        return $this->hasMany(Ticket::class);
 
     }
 
     public function theater():BelongsTo
     {
-        return $this->belongsTo(Theater::class())->withTrashed();
+        return $this->belongsTo(Theater::class)->withTrashed();
 
     }
 

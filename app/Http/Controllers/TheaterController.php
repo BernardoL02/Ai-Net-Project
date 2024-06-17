@@ -42,36 +42,48 @@ class TheaterController extends \Illuminate\Routing\Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function  store(TheaterFormRequest $request): RedirectResponse
+    public function store(TheaterFormRequest $request): RedirectResponse
     {
-        $NewTheater = Theater::create($request->validated());
-        if ($request->hasFile('photo_file')) {
-            $path = $request->photo_file->store('public/theater/');
-            $NewTheater->photo_url = basename($path);
-            $NewTheater->save();
+        $validatedData = $request->validated();
+
+        $theater = Theater::create([
+            'name' => $validatedData['name'],
+        ]);
+
+        if ($request->has('seat_data')) {
+            $seatData = json_decode($request->input('seat_data'), true);
+            foreach ($seatData as $seatInfo) {
+                $theater->seats()->create([
+                    'row' => $seatInfo['row'],
+                    'seat_number' => $seatInfo['seat_number'],
+                    'theater_id' => $theater->id,
+                ]);
+            }
         }
-        $url = route('theaters.show', ['theater' => $NewTheater]);
-        $htmlMessage = "Theater <a href='$url'><u>{$NewTheater->name}</u></a> ({$NewTheater->abbreviation}) has been created successfully!";
+
+        if ($request->hasFile('photo_file')) {
+            $path = $request->photo_file->store('public/theaters');
+            $theater->photo_url = basename($path);
+            $theater->save();
+        }
+
+        $url = route('theaters.show', ['theater' => $theater]);
+        $htmlMessage = "Theater <a href='$url'><u>{$theater->name}</u></a> ({$theater->abbreviation}) has been created successfully!";
+
         return redirect()->route('theaters.index')
-        ->with('alert-type', 'success')
-        ->with('alert-msg', $htmlMessage);
+            ->with('alert-type', 'success')
+            ->with('alert-msg', $htmlMessage);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Theater $theater): View
     {
-        return view('theaters.show',compact('theater'));
+        return view('theaters.show', compact('theater'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Theater $theater): View
     {
-        return view('theaters.edit',compact('theater'));
+        $theater->load('seats'); // Carregar os assentos associados
+        return view('theaters.edit', compact('theater'));
     }
 
     /**
@@ -83,13 +95,25 @@ class TheaterController extends \Illuminate\Routing\Controller
 
         if ($request->hasFile('photo_file')) {
             // Delete previous file (if any)
-            if ($theater->user->photo_filename &&
-                Storage::fileExists('public/theater/' . $theater->user->photo_filename)) {
-                    Storage::delete('public/photos/' . $theater->user->photo_filename);
+            if ($theater->photo_url && Storage::exists('public/theaters/' . $theater->photo_url)) {
+                Storage::delete('public/theaters/' . $theater->photo_url);
             }
             $path = $request->photo_file->store('public/theaters');
-            $theater->photo_filename = basename($path);
-            $theater->user->save();
+            $theater->photo_url = basename($path);
+            $theater->save();
+        }
+
+        if ($request->has('seat_data')) {
+            $seatData = json_decode($request->input('seat_data'), true);
+            $theater->seats()->delete();
+            foreach ($seatData as $seatInfo) {
+                $theater->seats()->create([
+                    'row' => $seatInfo['row'],
+                    'seat_number' => $seatInfo['seat_number'],
+                    'status' => $seatInfo['status'],
+                    'theater_id' => $theater->id,
+                ]);
+            }
         }
 
         $url = route('theaters.show', ['theater' => $theater]);
