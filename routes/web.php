@@ -23,15 +23,17 @@ Route::view('/', 'home')->name('home');
 Route::middleware('auth')->group(function () {
 
     Route::get('/password', [ProfileController::class, 'editPassword'])->name('profile.edit.password');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::delete('profile/{user}/photo', [ProfileController::class, 'destroyPhoto']) ->name('profile.photo.destroy');
-    Route::put('/profile/photo/{user}', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+
+    Route::middleware('can:profile')->group(function () {
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::delete('profile/{user}/photo', [ProfileController::class, 'destroyPhoto'])->name('profile.photo.destroy');
+        Route::put('/profile/photo/{user}', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+    });
 
     Route::get('/my-purchases', [CustomerController::class, 'myPurchases'])->name('customer.my-purchases');
     Route::get('/my-purchases/{purchase}/tickets', [PurchaseController::class, 'showTicketsOfCostumer'])->name('purchases.showTicketsOfCostumer');
     Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
-
 
     //Adicionar aqui as rotas que só podem ser acedidas pelo ADMIN
     Route::middleware('can:type')->group(function () {
@@ -67,20 +69,23 @@ Route::middleware('auth')->group(function () {
             Route::get('/configuration', [ConfigurationController::class, 'edit'])->name('configuration.edit');
             Route::patch('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
 
-            //Employees
-            Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
-            Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
-            Route::get('/employees/apply-additional-filters', [EmployeeAccessController::class, 'applyAdditionalFilters'])->name('employees.apply_additional_filters');
-            Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
-            Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
         });
 
         Route::get('dashboard', function () {
             return view('dashboard.index');
         })->name('dashboard');
 
+        //Employees
+        Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
+        Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
+        Route::get('/employees/apply-additional-filters', [EmployeeAccessController::class, 'applyAdditionalFilters'])->name('employees.apply_additional_filters');
+        Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
+        Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
+
     });
 });
+
+
 
 Route::resource('movies', MovieController::class);
 Route::get('movies/{movie}/showcase', [MovieController::class, 'showcase'])->name('movies.showcase');

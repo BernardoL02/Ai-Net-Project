@@ -75,7 +75,7 @@
                         </x-menus.admin-group-menu-items>
                     @endcan
 
-                    @can('viewAny', App\Models\Purchase::class)
+                    @can('viewAny', App\Models\Screening::class)
                         @php
                             $options = [];
                             $options['All Configuration'] = route('employees.index');

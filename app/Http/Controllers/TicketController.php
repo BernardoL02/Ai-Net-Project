@@ -27,8 +27,6 @@ class TicketController extends Controller
     public function myTickets(Request $request)
     {
 
-
-
     }
 
 
