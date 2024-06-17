@@ -22,7 +22,7 @@
                     @include('theaters.shared.fields', ['mode' => 'edit', 'seats' => $theater->seats])
 
                     <div class="flex mt-6">
-                        <x-button element="submit" type="dark" text="Save changes" class="uppercase"/>
+                        <x-button element="submit" type="dark" text="Saves changes" class="uppercase"/>
                     </div>
                 </form>
             </section>

@@ -30,7 +30,9 @@
                                 @if (!$screeningsFull)
                                     <div class="pb-5">
                                         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Choose your seats</h2>
-                                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">Please select the seats you would like to purchase from the seating plan below. Seats that are already reserved are marked in <span class="text-red-700">red</span>. Click on the available seats to add them to your cart. </p>
+                                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-2">Please select the seats you would like to buy from the seating plan below. Click on the available seats to add them to your cart.</p>
+                                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-2"> Seats that are already reserved are marked in <span class="text-red-700">red</span>. </p>
+                                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-2"> Seats that are unavailable are marked in  <span class="text-orange-500">orange</span>.</p>
                                         <p class="text-lg text-gray-700 dark:text-gray-300">Thank you for choosing our theater! Enjoy the show!</p>
                                     </div>
                                 @endif
@@ -74,17 +76,20 @@
                                                                             for="row_{{$row}}_seat_{{ $seat->seat_number }}">{{ $seat->seat_number }}</label>
                                                                     </div>
                                                                 @else
-                                                                    <div class="relative mt-3 ml-2 " >
+                                                                    @php
+                                                                        $isUnavailable = false;
+                                                                        if (!empty($seat->custom)) {
+                                                                            $customData = json_decode($seat->custom, true);
+                                                                            $isUnavailable = isset($customData['status']) && $customData['status'] === 'unavailable';
+                                                                        }
+                                                                    @endphp
 
-                                                                        <input class="sr-only peer" type="checkbox" value="{{ $seat->id }}" name="seats[]"
-                                                                            id="row_{{ $row}}_seat_{{ $seat->seat_number }}">
-                                                                        <label
-                                                                            class=" w-10 h-10 bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:ring-green-500 peer-checked:ring-2 peer-checked:border-transparent inline-block text-center pt-2"
-                                                                            for="row_{{ $row}}_seat_{{ $seat->seat_number }}">{{ $seat->seat_number }}
+                                                                    <div class="relative mt-3 ml-2">
+                                                                        <input class="sr-only peer" type="checkbox" value="{{ $seat->id }}" name="seats[]" id="row_{{ $row}}_seat_{{ $seat->seat_number }}" {{ $isUnavailable ? 'disabled' : '' }}>
+                                                                        <label class="w-10 h-10 {{ $isUnavailable ? 'bg-orange-500'  : 'bg-white cursor-pointer hover:bg-gray-50' }} border border-gray-300 rounded-lg focus:outline-none peer-checked:ring-green-500 peer-checked:ring-2 peer-checked:border-transparent inline-block text-center pt-2" for="row_{{ $row}}_seat_{{ $seat->seat_number }}">
+                                                                            {{ $seat->seat_number }}
                                                                         </label>
-
-                                                                        <div class="absolute hidden w-5 h-5 peer-checked:blocked  top-5 right-10">
-                                                                        </div>
+                                                                        <div class="absolute hidden w-5 h-5 peer-checked:blocked top-5 right-10"></div>
                                                                     </div>
                                                                 @endif
                                                             @endforeach

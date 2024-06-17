@@ -71,7 +71,8 @@ class PurchaseController extends Controller
         $tickets = $purchase->tickets()->get();
 
         foreach($tickets as $ticket){
-            if(Carbon::now()->toDateString() >= $ticket->screening->date && Carbon::now()->toTimeString() > Carbon::parse($ticket->screening->start_time)->addMinutes(5)->toTimeString()){
+
+            if(Carbon::now()->toDateString() > $ticket->screening->date || (Carbon::now()->toDateString() == $ticket->screening->date && Carbon::now()->toTimeString() > Carbon::parse($ticket->screening->start_time)->addMinutes(6)->toTimeString())){
                 $ticket->status = 'invalid';
                 $ticket->save();
             }

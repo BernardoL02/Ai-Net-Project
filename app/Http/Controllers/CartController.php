@@ -46,7 +46,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request, Screening $screening): RedirectResponse
     {
-        if(Carbon::now()->toDateString() >= $screening->date && Carbon::now()->toTimeString() > Carbon::parse($screening->start_time)->addMinutes(5)->toTimeString()){
+        if(Carbon::now()->toDateString() >= $screening->date && Carbon::now()->toTimeString() > Carbon::parse($screening->start_time)->addMinutes(6)->toTimeString()){
             return back()->with('alert-type', 'warning')->with('alert-msg', 'Impossible to add tickets. The session has already started!');
         }
 

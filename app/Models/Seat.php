@@ -12,7 +12,7 @@ class Seat extends Model
 {
     use HasFactory, SoftDeletes;
     public $timestamps = false;
-    protected $fillable = ['theater_id', 'row','seat_number'];
+    protected $fillable = ['theater_id', 'row','seat_number','custom'];
 
 
     public function tickets():HasMany

@@ -28,7 +28,7 @@
                     <span class="text-gray-900 dark:text-gray-100">Available</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-red-500 mr-2"></div>
+                    <div class="w-4 h-4 bg-orange-500 mr-2"></div>
                     <span class="text-gray-900 dark:text-gray-100">Unavailable</span>
                 </div>
             </div>
@@ -73,15 +73,18 @@
 
                 // Set seat status based on existing data
                 const seatData = seatsData.find(s => s.row === rowLabel && s.seat_number == (j + 1));
-                if (seatData && seatData.status === 'unavailable') {
-                    seat.classList.add('bg-red-500');
-                    seat.classList.remove('bg-green-500');
+                if (seatData && seatData.custom) {
+                    const customData = JSON.parse(seatData.custom);
+                    if (customData.status === 'unavailable') {
+                        seat.classList.add('bg-orange-500');
+                        seat.classList.remove('bg-green-500');
+                    }
                 }
 
                 if (!readonly) {
                     seat.onclick = function(event) {
                         event.preventDefault();
-                        seat.classList.toggle('bg-red-500');
+                        seat.classList.toggle('bg-orange-500');
                         seat.classList.toggle('bg-green-500');
                         updateSeatData();
                     };
@@ -102,7 +105,7 @@
         const seatData = Array.from(seats).map(seat => ({
             row: seat.dataset.row,
             seat_number: seat.dataset.seatNumber,
-            status: seat.classList.contains('bg-red-500') ? 'unavailable' : 'available'
+            status: seat.classList.contains('bg-orange-500') ? 'unavailable' : 'available'
         }));
         document.getElementById('seatData').value = JSON.stringify(seatData);
     }

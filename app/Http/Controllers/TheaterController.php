@@ -43,7 +43,6 @@ class TheaterController extends \Illuminate\Routing\Controller
     {
         $theater = new Theater();
         return view('theaters.create',compact('theater'));
-
     }
 
     /**
@@ -60,10 +59,14 @@ class TheaterController extends \Illuminate\Routing\Controller
         if ($request->has('seat_data')) {
             $seatData = json_decode($request->input('seat_data'), true);
             foreach ($seatData as $seatInfo) {
+
                 $theater->seats()->create([
                     'row' => $seatInfo['row'],
                     'seat_number' => $seatInfo['seat_number'],
                     'theater_id' => $theater->id,
+                    'custom' => json_encode([
+                        'status' => $seatInfo['status'] == 'available' ? 'available' : 'unavailable'
+                    ]),
                 ]);
             }
         }
@@ -98,6 +101,8 @@ class TheaterController extends \Illuminate\Routing\Controller
      */
     public function update(TheaterFormRequest $request, Theater $theater): RedirectResponse
     {
+        dd($request);
+
         $theater->update($request->validated());
 
         if ($request->hasFile('photo_file')) {
@@ -119,6 +124,9 @@ class TheaterController extends \Illuminate\Routing\Controller
                     'seat_number' => $seatInfo['seat_number'],
                     'status' => $seatInfo['status'],
                     'theater_id' => $theater->id,
+                    'custom' => json_encode([
+                        'status' => $seatInfo['status'] == 'available' ? 'available' : 'unavailable'
+                    ]),
                 ]);
             }
         }
