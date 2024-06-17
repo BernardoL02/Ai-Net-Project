@@ -120,7 +120,6 @@ class CartController extends Controller
             }
         }
 
-        // Verifique se há itens no carrinho antes de prosseguir
         $cart = session('cart', []);
         if (empty($cart)) {
             return back()
@@ -128,11 +127,10 @@ class CartController extends Controller
                 ->with('alert-msg', "Cart was not confirmed because it is empty!");
         }
 
-        // Crie um array para armazenar as informações da compra e dos tickets
         $purchaseData = [
             'date' => now(), // Data da compra
-            'total_price' => 0, // Inicialize o preço total como zero e calcule-o conforme adiciona os tickets
-            'nif' => $validatedData['nif'] ?? null, // NIF (opcional)
+            'total_price' => 0,
+            'nif' => $validatedData['nif'] ?? null,
             'customer_id' => $customerID ?? null,
             'customer_email' => $validatedData['email'],
             'customer_name' => $validatedData['name'],
@@ -143,7 +141,6 @@ class CartController extends Controller
 
         $ticketPrice = DB::table('configuration')->where('id', '1')->value('ticket_price');
 
-        // Inicie uma transação de banco de dados para garantir a integridade dos dados
         try {
 
             DB::beginTransaction();
@@ -151,7 +148,6 @@ class CartController extends Controller
             $purchase = Purchase::create($purchaseData);
             $purchaseId = $purchase->id;
 
-            // Processar cada item no carrinho
             foreach ($cart as $item) {
 
                 $ticketData = [

@@ -13,6 +13,7 @@
         </thead>
         <tbody>
         @foreach ($tickets as $ticket)
+
             <tr class="border-l border-gray-400 dark:border-b-gray-500">
                 <td class="px-4 py-2 border border-gray-300 border-l-2 border-l-gray-400">
                     <div class="flex items-center">

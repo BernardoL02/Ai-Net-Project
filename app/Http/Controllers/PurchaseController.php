@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use PDF;
+use Carbon\Carbon;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Mail\PurchaseReceipt;
@@ -68,6 +69,13 @@ class PurchaseController extends Controller
     public function showTicketsOfCostumer(Purchase $purchase)
     {
         $tickets = $purchase->tickets()->get();
+
+        foreach($tickets as $ticket){
+            if(Carbon::now()->toDateString() >= $ticket->screening->date && Carbon::now()->toTimeString() > Carbon::parse($ticket->screening->start_time)->addMinutes(5)->toTimeString()){
+                $ticket->status = 'invalid';
+                $ticket->save();
+            }
+        }
 
         return view('purchases.show-tickets', compact('purchase', 'tickets'));
     }
