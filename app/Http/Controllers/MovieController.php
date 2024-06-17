@@ -108,11 +108,23 @@ class MovieController extends Controller
 
     public function showMovies(Request $request): View
     {
+        $query = Movie::query();
+
+        if ($request->filled('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
+        }
+
+        if ($request->filled('genre')) {
+            $query->where('genre_code', $request->genre);
+        }
+
+        $movies = $query->paginate(10);
+
         $genres = Genre::all();
         $arrayGenresCode = $genres->pluck('name', 'code')->toArray();
         $arrayGenresCode = array(' ' => 'All Genres') + $arrayGenresCode;
-        $movies = Movie::paginate(10);
-        return view('movies.showMovies',compact('movies','arrayGenresCode'));
+
+        return view('movies.showMovies', compact('movies', 'arrayGenresCode'));
     }
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use App\Mail\PurchaseReceipt;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,6 +24,26 @@ class PurchaseController extends Controller
         }else{
             return null;
         }
+    }
+
+    public function sendReceiptEmail(Purchase $purchase)
+    {
+        $testingDate = '2024-06-01';
+
+        $validTickets = $purchase->tickets->filter(function($ticket) use ($testingDate) {
+            return $ticket->screening->date >= $testingDate;
+        });
+
+        $invalidTickets = $purchase->tickets->filter(function($ticket) use ($testingDate) {
+            return $ticket->screening->date < $testingDate;
+        });
+
+        $data=['purchase'=>$purchase,'download'=>false,'validTickets'=>$validTickets,'invalidTickets'=>$invalidTickets];
+        $pdf = PDF::loadView('tickets',$data);
+
+        $filename = 'receipt_' . $purchase->id . '.pdf';
+
+        Mail::to($purchase->customer_email)->send(new PurchaseReceipt($purchase, $pdf, $filename));
     }
 
     public function showTickets(Purchase $purchase){

@@ -7,8 +7,8 @@
     <div class="flex justify-center">
         <div class="my-4 p-6 grow bg-white dark:bg-gray-900 overflow-hidden
                     shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
-                    <form  action="{{ route('movies.index') }}" method="GET" class="pb-6 flex space-x-4">
-                        <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}"  />
+                    <form action="{{ route('movies.showMovies') }}" method="GET" class="pb-6 flex space-x-4">
+                        <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}" />
                         <x-field.select
                             name="genre"
                             :options="$arrayGenresCode"
@@ -17,6 +17,7 @@
                             value="{{ request('genre') }}"
                         />
                         <x-button element="submit" text="Search" type="dark" class="mt-7"/>
+                        <x-button element="a" type="light" text="All Movies" :href="url()->current()" class="mt-7"/>
                     </form>
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
                 <x-movies.table
