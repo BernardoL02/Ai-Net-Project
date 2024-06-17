@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Seat;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Seat;
 
 
 class Ticket extends Model
@@ -27,7 +28,7 @@ class Ticket extends Model
 
     public function purchase():BelongsTo
     {
-        return $this->belongsTo(Theater::class);
+        return $this->belongsTo(Purchase::class);
 
     }
 
@@ -42,4 +43,5 @@ class Ticket extends Model
         //return $this->belongsTo(Seat::class())->withTrashed(); Como estava
         return $this->belongsTo(Seat::class)->withTrashed();
     }
+
 }

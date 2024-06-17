@@ -145,7 +145,6 @@ class ScreeningController extends Controller
         $screening = Screening::find($screening->id);
         $screeningsFull = false;
 
-        return view('screenings.showcase', compact('screening'));
         if ($screening) {
 
             $max_seats = $screening->theater->seats->count();

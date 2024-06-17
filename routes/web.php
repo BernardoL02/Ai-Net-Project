@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\EmployeeAccessController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -62,6 +63,12 @@ Route::middleware('auth')->group(function () {
             //Configs
             Route::get('/configuration', [ConfigurationController::class, 'edit'])->name('configuration.edit');
             Route::patch('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
+
+            //Employees
+            Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
+            Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
+            Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
+            Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
         });
 
         Route::get('dashboard', function () {

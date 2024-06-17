@@ -37,7 +37,7 @@
 
                         @if ($hasInvalid)
                         <p class="text-red-700 pt-2 ml-auto">
-                            The download cannot proceed because there are invalid tickets in your selection.
+                            The download cannot proceed due to invalid tickets.
                         </p>
                         @else
                             <x-button class="ml-auto"
