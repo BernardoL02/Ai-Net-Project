@@ -114,6 +114,10 @@ class CartController extends Controller
 
         if (Auth::check()) {
             $customerID = $request->user()->id;
+
+            if($request->user()->customer == null){
+                Customer::create(['id'=>$request->user()->id]);
+            }
         }
 
         // Verifique se há itens no carrinho antes de prosseguir
@@ -135,6 +139,7 @@ class CartController extends Controller
             'payment_type' => $validatedData['payment_type'],
             'payment_ref' => $validatedData['payment_ref'],
         ];
+
 
         $ticketPrice = DB::table('configuration')->where('id', '1')->value('ticket_price');
 

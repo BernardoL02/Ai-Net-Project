@@ -62,6 +62,11 @@ class CustomerController extends Controller
         $filterByPriceOption= $request->priceOption;
 
         $customer = auth()->user()->customer;
+        if(!$customer){
+            $numberPurchases = 0;
+            return view('customers.my-purchases',compact('numberPurchases'));
+        }
+
         $purchasesQuery = $customer->purchases();
 
         if ($filterByPaymentType !== null) {
@@ -87,8 +92,9 @@ class CustomerController extends Controller
         }
 
         $purchases = $purchasesQuery->orderby('customer_name')->paginate(20)->withQueryString();                                /* ->orderby('total_price') */
+        $numberPurchases = $purchases->count();
 
-        return view('customers.my-purchases', compact('purchases','filterByPaymentType','filterByPrice','filterByPriceOption'));
+        return view('customers.my-purchases', compact('purchases','numberPurchases','filterByPaymentType','filterByPrice','filterByPriceOption'));
     }
 
     /**

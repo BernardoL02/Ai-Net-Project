@@ -42,11 +42,19 @@ class EmployeeAccessController extends Controller
                         $query->where('name', $theaterName);
             });
 
-        })->with(['screening.movie', 'screening.theater'])->get();
+        })->with(['screening.movie', 'screening.theater'])->paginate(20);;
 
         if ($tickets->isEmpty()) {
             return back()->with('alert-type', 'danger')->with('alert-msg', 'No tickets found for the specified screening session!');
         }
+
+        session([
+            'movie' => $movieTitle,
+            'theater' => $theaterName,
+            'date' => $date,
+            'start_time' => $time
+        ]);
+
 
         if ($request->filled('id')) {
             $tickets->where('id', $request->id);
@@ -66,6 +74,50 @@ class EmployeeAccessController extends Controller
         })->first();
 
         return view('employees.get_tickets_of_screening_session', compact('tickets','screening'));
+    }
+
+    public function applyAdditionalFilters(Request $request)
+    {
+        $movieTitle = session('movie');
+        $theaterName = session('theater');
+        $date = session('date');
+        $time = session('start_time');
+
+        $query = Ticket::whereHas('screening', function ($query) use ($movieTitle, $theaterName, $date, $time) {
+            $query->where('date', $date)
+                ->where('start_time', $time)
+                ->whereHas('movie', function ($query) use ($movieTitle) {
+                    $query->where('title', $movieTitle);
+                })
+                ->whereHas('theater', function ($query) use ($theaterName) {
+                    $query->where('name', $theaterName);
+                });
+        });
+
+        if ($request->filled('id')) {
+            $query->where('id', $request->id);
+        }
+
+        if ($request->filled('qrcode')) {
+            $query->where('qrcode_url', $request->qrcode);
+        }
+
+        $tickets = $query->with(['screening.movie', 'screening.theater'])->paginate(20);
+
+        if ($tickets->isEmpty()) {
+            return back()->with('alert-type', 'danger')->with('alert-msg', 'No tickets found with the applied filters!');
+        }
+
+        $screening = Screening::where('date', $date)
+            ->where('start_time', $time)
+            ->whereHas('movie', function ($query) use ($movieTitle) {
+                $query->where('title', $movieTitle);
+            })
+            ->whereHas('theater', function ($query) use ($theaterName) {
+                $query->where('name', $theaterName);
+            })->first();
+
+        return view('employees.get_tickets_of_screening_session', compact('tickets', 'screening'));
     }
 
     public function validateTicket(Ticket $ticket){

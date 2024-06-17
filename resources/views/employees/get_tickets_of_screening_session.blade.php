@@ -35,17 +35,14 @@
                         </div>
 
                         <div>
-                            <form  action="{{ route('employees.get_tickets_of_screening_session')}}" method="GET" class="pb-6 flex space-x-4">
-
-                                <x-field.input label="Ticket ID" name="id" :width="'lg'" value="{{ request('id') }}"  />
-                                <x-field.input label="QR Code" name="qrcode" :width="'lg'" value="{{ request('qrcode') }}"  />
-
+                            <form action="{{ route('employees.apply_additional_filters') }}" method="GET" class="pb-6 flex space-x-4">
+                                <x-field.input label="Ticket ID" name="id" :width="'lg'" value="{{ request('id') }}" />
+                                <x-field.input label="QR Code" name="qrcode" :width="'lg'" value="{{ request('qrcode') }}" />
 
                                 <x-button element="submit" text="Search" type="dark" class="mt-7"/>
                                 <x-button element="a" type="light" text="All Tickets" :href="url()->current()" class="mt-7"/>
-
                             </form>
-                        <div>
+                        </div>
 
                         <table class="table-auto border-collapse w-full border-2 border-gray-400 justify-center items-center">
                             <thead>
@@ -137,6 +134,10 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <div class="mt-4">
+                            {{ $tickets->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

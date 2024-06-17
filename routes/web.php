@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
             //Employees
             Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
             Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
+            Route::get('/employees/apply-additional-filters', [EmployeeAccessController::class, 'applyAdditionalFilters'])->name('employees.apply_additional_filters');
             Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
             Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
         });
