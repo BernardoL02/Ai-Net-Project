@@ -156,6 +156,7 @@ class MovieController extends Controller
         $screeningByDates = array_combine($screeningByDates, $screeningByDates);
         $screeningByDates = ['-' => 'All Dates'] + $screeningByDates;
 
+
         $genres = Genre::orderBy("name")->pluck('name', 'code')->toArray();
 
         return view('movies.showcase', compact('movie', 'genres', 'screeningByDates', 'filterByDate', 'startTimes'));
