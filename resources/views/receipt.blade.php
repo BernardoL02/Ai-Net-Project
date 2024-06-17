@@ -68,19 +68,20 @@
                                         {{ $ticket->screening->theater->name }}
 
                                     </td>
-                                    <td style="width: 220px;">
+                                    <td style="width: 100px;">
                                         <div class="flex items-center">
                                             <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt="" style="width: 50px; height: 65px; margin-top:10px" >
-                                            {{ $ticket->screening->movie->title }}
+
                                         </div>
+                                        {{ $ticket->screening->movie->title }}
                                     </td>
-                                    <td>{{ $ticket->screening->date }}
+                                    <td style="width:100px">{{ $ticket->screening->date }}
                                         {{ $ticket->screening->start_time }} </td>
                                     <td>{{ $ticket->screening_id }}
                                     </td>
                                     <td>
                                         {{ $ticket->seat->row }}{{ $ticket->seat->seat_number }} </td>
-                                    <td>{{ $ticket->price }} $</td>
+                                    <td style="width: 50px">{{ $ticket->price }} $</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -43,14 +43,12 @@
             <div class="max-full">
                 <section>
                     <h2>Tickets</h2>
-
-                    <p><span class="label">Name:</span> {{ $purchase->customer_name }}</p>
-                    <p><span class="label">Email:</span> {{ $purchase->customer_email ?? 'Not registered' }}</p>
                     @if ($purchase->customer_id != null)
-                        <p><img src="{{ $purchase->customer->user->photo_filename }}" alt=""
+                        <p><img src="{{ $purchase->customer->user->photoFullUrl}}" alt=""
                                 style="width: 65px; height: 65px; "></p>
                     @endif
-
+                    <p><span class="label">Name:</span> {{ $purchase->customer_name }}</p>
+                    <p><span class="label">Email:</span> {{ $purchase->customer_email ?? 'Not registered' }}</p>
                     <table>
                         <thead>
                             <tr>
@@ -61,6 +59,7 @@
                                 <th>Screening</th>
                                 <th>Row</th>
                                 <th>Price</th>
+                                <th>QR Code</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,17 +67,19 @@
                                 <tr>
                                     <td>{{ $ticket->id }}</td>
                                     <td>{{ $ticket->screening->theater->name }}</td>
-                                    <td style="width: 220px;">
+                                    <td style="width: 100px;">
                                         <div class="flex items-center">
                                             <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt=""
                                                 style="width: 50px; height: 65px; margin-top:10px">
-                                            {{ $ticket->screening->movie->title }}
+
                                         </div>
+                                        {{ $ticket->screening->movie->title }}
                                     </td>
-                                    <td>{{ $ticket->screening->date }} {{ $ticket->screening->start_time }}</td>
+                                    <td style="width:100px">{{ $ticket->screening->date }} {{ $ticket->screening->start_time }}</td>
                                     <td>{{ $ticket->screening_id }}</td>
                                     <td>{{ $ticket->seat->row }}{{ $ticket->seat->seat_number }}</td>
-                                    <td>{{ $ticket->price }} $</td>
+                                    <td style="width: 50px">{{ $ticket->price }} $</td>
+                                    <td><img src="C:/laragon/www/Ai-Net-Project/storage/app/ticket_qrcodes/qrcode_{{$ticket->id}}.png" style="width: 65px; height: 65px;"></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -95,6 +96,7 @@
                                     <th>Screening</th>
                                     <th>Row</th>
                                     <th>Price</th>
+                                    <th>QR Code</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,17 +104,19 @@
                                     <tr>
                                         <td>{{ $ticket->id }}</td>
                                         <td>{{ $ticket->screening->theater->name }}</td>
-                                        <td style="width: 220px;">
+                                        <td style="width:100px">
                                             <div class="flex items-center">
                                                 <img src="{{ $ticket->screening->movie->posterFullUrl }}" alt=""
                                                     style="width: 50px; height: 65px; margin-top:20px;">
-                                                {{ $ticket->screening->movie->title }}
+
                                             </div>
+                                            {{ $ticket->screening->movie->title }}
                                         </td>
-                                        <td>{{ $ticket->screening->date }} {{ $ticket->screening->start_time }}</td>
+                                        <td style="width:100px">{{ $ticket->screening->date }} {{ $ticket->screening->start_time }}</td>
                                         <td>{{ $ticket->screening_id }}</td>
                                         <td>{{ $ticket->seat->row }}{{ $ticket->seat->seat_number }}</td>
-                                        <td>{{ $ticket->price }} $</td>
+                                        <td style="width:50px">{{ $ticket->price }} $</td>
+                                        <td><img src="C:/laragon/www/Ai-Net-Project/storage/app/ticket_qrcodes/qrcode_{{$ticket->id}}.png" style="width: 65px; height: 65px;"></td>
                                     </tr>
                                 @endforeach
                             </tbody>
