@@ -31,12 +31,30 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/photo/{user}', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
     });
 
+    Route::middleware('can:AdminEmployee')->group(function () {
+        Route::get('dashboard', function () {
+            return view('dashboard.index');
+        })->name('dashboard');
+
+         //Employees
+         Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
+         Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
+         Route::get('/employees/apply-additional-filters', [EmployeeAccessController::class, 'applyAdditionalFilters'])->name('employees.apply_additional_filters');
+         Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
+         Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
+
+          //All screenings
+          Route::resource('screenings', ScreeningController::class);
+          Route::post('/screenings/storeMultiple', [ScreeningController::class, 'storeMultiple'])->name('screenings.storeMultiple');
+
+    });
+
     Route::get('/my-purchases', [CustomerController::class, 'myPurchases'])->name('customer.my-purchases');
     Route::get('/my-purchases/{purchase}/tickets', [PurchaseController::class, 'showTicketsOfCostumer'])->name('purchases.showTicketsOfCostumer');
     Route::get('/purchases/{purchase}/tickets/download', [PurchaseController::class, 'downloadTickets'])->name('tickets.download');
 
     //Adicionar aqui as rotas que só podem ser acedidas pelo ADMIN
-    Route::middleware('can:type')->group(function () {
+    Route::middleware('can:Admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::resource('theaters',TheaterController::class);
             Route::delete('theater/{theater}/photo', [TheaterController::class, 'destroyPhoto'])->name('theater.photo.destroy')->can('update', 'theater');
@@ -56,9 +74,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/movies', [MovieController::class, 'showMovies'])->name('movies.showMovies');
             Route::delete('movie/{movie}/photo', [TheaterController::class, 'destroyPhoto'])->name('movie.photo.destroy')->can('update', 'movie');
 
-            //All screenings
-            Route::resource('screenings', ScreeningController::class);
-            Route::post('/screenings/storeMultiple', [ScreeningController::class, 'storeMultiple'])->name('screenings.storeMultiple');
 
             //Users Configs
             Route::resource('users',UserController::class);
@@ -70,18 +85,6 @@ Route::middleware('auth')->group(function () {
             Route::patch('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
 
         });
-
-        Route::get('dashboard', function () {
-            return view('dashboard.index');
-        })->name('dashboard');
-
-        //Employees
-        Route::get('employees', [EmployeeAccessController::class, 'index'])->name('employees.index');
-        Route::get('employees/screening-session/tickets', [EmployeeAccessController::class, 'getTicketsOfScreeningSession'])->name('employees.get_tickets_of_screening_session');
-        Route::get('/employees/apply-additional-filters', [EmployeeAccessController::class, 'applyAdditionalFilters'])->name('employees.apply_additional_filters');
-        Route::put('employees/screening-session//{ticket}/validate', [EmployeeAccessController::class, 'validateTicket'])->name('employees.validateTicket');
-        Route::put('employees/screening-session//{ticket}/invalidate', [EmployeeAccessController::class, 'invalidateTicket'])->name('employees.invalidateTicket');
-
     });
 });
 

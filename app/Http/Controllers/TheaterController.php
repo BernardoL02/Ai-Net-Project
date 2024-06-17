@@ -25,7 +25,6 @@ class TheaterController extends \Illuminate\Routing\Controller
     public function index(Request $request): View
     {
         $query = Theater::query();
-
         if ($request->has('name')) {
             $query->where('name', 'like', '%' . $request->input('name') . '%');
         }
@@ -101,23 +100,31 @@ class TheaterController extends \Illuminate\Routing\Controller
      */
     public function update(TheaterFormRequest $request, Theater $theater): RedirectResponse
     {
-        dd($request);
 
+        // Update theater with validated data
         $theater->update($request->validated());
 
+        // Handle photo file upload
         if ($request->hasFile('photo_file')) {
-            // Delete previous file (if any)
-            if ($theater->photo_url && Storage::exists('public/theaters/' . $theater->photo_url)) {
-                Storage::delete('public/theaters/' . $theater->photo_url);
+            // Delete previous file if it exists
+            if ($theater->photo_filename && Storage::exists('public/theaters/' . $theater->photo_filename)) {
+                Storage::delete('public/theaters/' . $theater->photo_filename);
             }
+
+            // Store new photo file
             $path = $request->photo_file->store('public/theaters');
-            $theater->photo_url = basename($path);
+            $theater->photo_filename = basename($path);
             $theater->save();
         }
 
+        // Handle seat data
         if ($request->has('seat_data')) {
             $seatData = json_decode($request->input('seat_data'), true);
+
+            // Delete existing seats
             $theater->seats()->delete();
+
+            // Create new seats
             foreach ($seatData as $seatInfo) {
                 $theater->seats()->create([
                     'row' => $seatInfo['row'],
@@ -131,9 +138,11 @@ class TheaterController extends \Illuminate\Routing\Controller
             }
         }
 
+        // Generate success message with link to the updated theater
         $url = route('theaters.show', ['theater' => $theater]);
         $htmlMessage = "Theater <a href='$url'><u>{$theater->name}</u></a> ({$theater->id}) has been updated successfully!";
 
+        // Redirect to the theaters index with success message
         return redirect()->route('theaters.index')
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);

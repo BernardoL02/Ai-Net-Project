@@ -15,7 +15,6 @@ class Theater extends Model
     protected $fillable=['name','photo_filename'];
 
 
-
     public function screenings():HasMany
     {
         return $this->hasMany(Screening::class);

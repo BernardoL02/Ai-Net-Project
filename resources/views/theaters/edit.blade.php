@@ -16,13 +16,12 @@
                     </p>
                 </header>
 
-                <form id="theaterForm" method="POST" action="{{ route('theaters.update', $theater) }}" enctype="multipart/form-data">
+                <form id="theaterForm" method="POST" action="{{ route('theaters.create', $theater) }}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
-                    @include('theaters.shared.fields', ['mode' => 'edit', 'seats' => $theater->seats])
+                    @include('theaters.shared.fields', ['mode' => 'create'])
 
                     <div class="flex mt-6">
-                        <x-button element="submit" type="dark" text="Saves changes" class="uppercase"/>
+                        <x-button element="submit" type="dark" text="Save new theater" class="uppercase"/>
                     </div>
                 </form>
             </section>
