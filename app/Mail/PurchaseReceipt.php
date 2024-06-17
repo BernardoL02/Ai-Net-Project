@@ -6,33 +6,41 @@ use App\Models\Purchase;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class PurchaseReceipt extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $purchase;
-    public $pdfContent;
-    public $filename;
+    public $pdfReceiptPath;
+    public $pdfTicketsContent;
 
     /**
      * Create a new message instance.
+     *
+     * @return void
      */
-    public function __construct(Purchase $purchase, $pdfContent, $filename)
+    public function __construct($purchase, $pdfReceiptPath, $pdfTicketsContent)
     {
         $this->purchase = $purchase;
-        $this->pdfContent = $pdfContent;
-        $this->filename = $filename;
+        $this->pdfReceiptPath = $pdfReceiptPath;
+        $this->pdfTicketsContent = $pdfTicketsContent;
     }
 
     /**
      * Build the message.
+     *
+     * @return $this
      */
     public function build()
     {
-        return $this->subject('Your Purchase Receipt')
-                    ->markdown('emails.purchase.receipt')
-                    ->attachData($this->pdfContent, $this->filename, [
+        return $this->view('emails.receipt')
+                    ->attach($this->pdfReceiptPath, [
+                        'as' => 'receipt.pdf',
+                        'mime' => 'application/pdf',
+                    ])
+                    ->attachData($this->pdfTicketsContent, 'tickets.pdf', [
                         'mime' => 'application/pdf',
                     ]);
     }

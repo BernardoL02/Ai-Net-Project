@@ -14,27 +14,6 @@ class TicketController extends Controller
     {
 
         $tickets = Ticket::paginate(20);
-    /*
-        $filterByScreening = $request->input('screening');
-       // $filterByPurchase = $request->input('purchase');
-
-        $ticketQuery = Ticket::query();
-        if ($filterByScreening !== null) {
-            $ticketQuery->where('course', $filterByScreening);
-        }
-
-       if ($filterByPurchase !== null) {
-            $ticketQuery->where('year', $filterByPurchase);
-        }
-
-       if ($filterByTeacher !== null) {
-            $disciplinesQuery->with('teachers.user')->whereHas(
-                'teachers.user',
-                function ($userQuery) use ($filterByTeacher) {
-                    $userQuery->where('name', 'LIKE', '%' . $filterByTeacher . '%');
-                }
-            );
-        }*/
 
         return view(
             'tickets.index',

@@ -9,7 +9,7 @@
             <h1 class="pb-3 text-4xl font-semibold text-gray-800 dark:text-gray-200 leading-tight">
                 Movies on show
             </h1>
-            <div> <!-- Terminar-->
+            <div>
                 <form  action="{{ route('movies.index') }}" method="GET" class="pb-6 flex space-x-4">
                     <x-field.input label="Title" name="title" :width="'lg'" value="{{ request('title') }}"  />
                     <x-field.input label="Synopsis" name="synopsis" :width="'lg'" value="{{ request('synopsis') }}" />

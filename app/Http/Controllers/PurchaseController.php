@@ -83,10 +83,9 @@ class PurchaseController extends Controller
     public function downloadTickets(Purchase $purchase){
 
         $data=['purchase'=>$purchase,'download'=>true];
-
         $pdf = PDF::loadView('tickets',$data);
-
         return $pdf->download('ticket.pdf');
+
     }
 
     public function index(Request $request)

@@ -24,10 +24,17 @@ class TheaterController extends \Illuminate\Routing\Controller
 
     public function index(Request $request): View
     {
+        $query = Theater::query();
 
-        $theaters = Theater::paginate(10);
-        return view('theaters.index',compact('theaters'));
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        $theaters = $query->paginate(10)->appends($request->all());
+
+        return view('theaters.index', compact('theaters'));
     }
+
 
     /**
      * Show the form for creating a new resource.

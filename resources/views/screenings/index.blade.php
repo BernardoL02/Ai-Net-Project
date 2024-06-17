@@ -19,6 +19,7 @@
             />
 
             <x-button element="submit" text="Search" type="dark" class="mt-7"/>
+            <x-button element="a" type="light" text="All Screenings" :href="url()->current()" class="mt-7"/>
         </form>
         @if (Session::has('error'))
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative " role="alert">

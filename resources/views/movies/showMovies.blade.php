@@ -3,7 +3,6 @@
 @section('header-title', 'List of Movies')
 
 @section('main')
-
     <div class="flex justify-center">
         <div class="my-4 p-6 grow bg-white dark:bg-gray-900 overflow-hidden
                     shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">

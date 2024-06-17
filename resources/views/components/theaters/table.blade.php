@@ -1,4 +1,4 @@
-<div {{ $attributes }}>
+
     <table class="table-auto  border-2 border-gray-600 w-full">
         <thead>
             <tr class="border-b-2 border-b-gray-400 dark:border-b-gray-500 bg-gray-100 dark:bg-gray-800">

@@ -18,7 +18,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\EmployeeAccessController;
 
 
-//WITH THIS
 Route::view('/', 'home')->name('home');
 
 Route::middleware('auth')->group(function () {
@@ -79,8 +78,6 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', function () {
             return view('dashboard.index');
         })->name('dashboard');
-
-
 
     });
 });
